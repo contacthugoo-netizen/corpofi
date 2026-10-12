@@ -1,0 +1,1424 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Corporate Finance Midterm</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=JetBrains+Mono:wght@400;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<style>
+/* Layout: an accountant's ledger pad. Tab index on the left, one ruled reading column, a deck of exam cards to work through. */
+:root{
+  --paper:#ECF1EA;
+  --sheet:#FAFCF7;
+  --rule:#CBD9C6;
+  --ink:#16221E;
+  --muted:#55655E;
+  --ledger:#1C6648;
+  --ledger-soft:#D9E9DC;
+  --red:#B23727;
+  --red-soft:#F5DFD9;
+  --mark:#F2E07A;
+  --mark-ink:#16221E;
+  --display:"Archivo","Arial Narrow",system-ui,sans-serif;
+  --body:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0F1613; --sheet:#151F1B; --rule:#2A3832; --ink:#E2ECE6; --muted:#93A39B;
+    --ledger:#5DC497; --ledger-soft:#1B3328; --red:#F28470; --red-soft:#3A211C; --mark:#5B5220; --mark-ink:#F4EBC0;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0F1613; --sheet:#151F1B; --rule:#2A3832; --ink:#E2ECE6; --muted:#93A39B;
+  --ledger:#5DC497; --ledger-soft:#1B3328; --red:#F28470; --red-soft:#3A211C; --mark:#5B5220; --mark-ink:#F4EBC0;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;padding-inline:16px;padding-block:0 64px}
+a{color:var(--ledger)}
+:focus-visible{outline:2px solid var(--ledger);outline-offset:2px}
+
+/* ---------- top bar ---------- */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--paper);border-bottom:1px solid var(--rule);margin-inline:-16px;padding:10px 16px}
+.top-in{max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:10px 24px;justify-content:space-between}
+.brand{display:flex;flex-direction:column;line-height:1.15}
+.brand b{font-family:var(--display);font-stretch:118%;font-weight:800;font-size:1.15rem;letter-spacing:-.01em}
+.brand span{font-family:var(--mono);font-size:.72rem;color:var(--muted)}
+.modes{display:flex;gap:4px;background:var(--sheet);border:1px solid var(--rule);border-radius:999px;padding:3px}
+.modes a{font-family:var(--display);font-stretch:105%;font-weight:600;font-size:.88rem;text-decoration:none;color:var(--muted);padding:6px 14px;border-radius:999px}
+.modes a[aria-current="page"]{background:var(--ledger);color:var(--sheet)}
+
+/* ---------- layout ---------- */
+.wrap{max-width:1180px;margin:24px auto 0;display:grid;grid-template-columns:220px minmax(0,1fr);gap:32px}
+.wrap.solo{grid-template-columns:minmax(0,1fr)}
+.index{position:sticky;top:calc(env(safe-area-inset-top,0px) + 76px);align-self:start}
+.index h4{font-family:var(--display);font-stretch:110%;text-transform:uppercase;letter-spacing:.08em;font-size:.72rem;color:var(--muted);margin:0 0 8px}
+.index ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
+.index a{display:grid;grid-template-columns:28px 1fr;align-items:baseline;text-decoration:none;color:var(--ink);font-family:var(--display);font-size:.92rem;padding:6px 8px;border-radius:4px}
+.index a:hover{background:var(--ledger-soft)}
+.index a .no{font-family:var(--mono);font-size:.75rem;color:var(--muted)}
+main{min-width:0}
+@media (max-width:860px){
+  .wrap{grid-template-columns:minmax(0,1fr)}
+  .index{position:static}
+  .index ol{flex-direction:row;overflow-x:auto;gap:6px;padding-bottom:6px}
+  .index a{grid-template-columns:auto auto;gap:6px;white-space:nowrap;border:1px solid var(--rule);background:var(--sheet)}
+}
+
+/* ---------- reading sheets ---------- */
+.sheet{background:var(--sheet);border:1px solid var(--rule);border-radius:6px;padding:28px clamp(18px,4vw,48px) 36px;min-width:0}
+.sheet + .sheet{margin-top:28px}
+.prose{max-width:68ch}
+.eyebrow{font-family:var(--mono);font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ledger)}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;line-height:1.15;margin:0}
+h1{font-stretch:120%;font-weight:800;font-size:clamp(1.8rem,4.2vw,2.6rem);letter-spacing:-.02em}
+h2{font-stretch:118%;font-weight:800;font-size:clamp(1.5rem,3.2vw,2rem);letter-spacing:-.015em;margin-top:4px}
+h3{font-stretch:108%;font-weight:700;font-size:1.18rem;margin-top:34px;padding-top:14px;border-top:1px solid var(--rule)}
+h4{font-family:var(--display);font-weight:700;font-size:1rem;margin:22px 0 4px}
+p{margin:10px 0}
+.lede{font-size:1.12rem;color:var(--ink);margin-top:12px}
+.muted{color:var(--muted)}
+b,strong{font-weight:600}
+mark{background:linear-gradient(100deg,transparent 2%,var(--mark) 4%,var(--mark) 96%,transparent 98%);color:var(--mark-ink);padding:0 .2em;border-radius:2px}
+ul.clean,ol.steps{padding-left:1.2em;margin:8px 0}
+ul.clean li,ol.steps li{margin:4px 0}
+
+/* intro card */
+.how{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:20px}
+.how div{border:1px solid var(--rule);border-radius:4px;padding:12px 14px;background:var(--paper)}
+.how b{display:block;font-family:var(--display);font-stretch:110%}
+.how span{font-size:.95rem;color:var(--muted)}
+
+/* formula block */
+.formula{border:1px solid var(--rule);border-radius:4px;padding:14px 16px;margin:14px 0;background:var(--paper)}
+.formula .lab{font-family:var(--display);font-stretch:110%;text-transform:uppercase;letter-spacing:.08em;font-size:.68rem;color:var(--ledger);margin-bottom:6px}
+.f{font-family:var(--mono);font-size:.98rem;display:flex;flex-wrap:wrap;align-items:center;gap:.35em .45em}
+.f + .f{margin-top:10px}
+.frac{display:inline-flex;flex-direction:column;text-align:center;vertical-align:middle}
+.frac>span:first-child{border-bottom:1.5px solid currentColor;padding:0 .35em 2px}
+.frac>span:last-child{padding:2px .35em 0}
+.formula .words{font-size:.95rem;color:var(--muted);margin:8px 0 0}
+sup{font-size:.7em}
+
+/* ledger table (worked examples) */
+.tablewrap{overflow-x:auto;margin:14px 0;border:1px solid var(--rule);border-radius:4px;background:var(--sheet)}
+table{border-collapse:collapse;width:100%;font-size:.93rem}
+th,td{padding:7px 12px;text-align:left;vertical-align:top;border-bottom:1px solid var(--rule)}
+tr:last-child td{border-bottom:none}
+th{font-family:var(--display);font-stretch:106%;font-weight:700;font-size:.8rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);background:var(--paper)}
+td.n,th.n{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+td.w{font-family:var(--mono);font-size:.85rem;color:var(--muted)}
+.ledger td.n{border-left:1px solid var(--rule)}
+tr.tot td{font-weight:600;border-top:2px solid var(--ink)}
+.neg{color:var(--red)}
+.caption{font-family:var(--mono);font-size:.75rem;color:var(--muted);padding:8px 12px;border-top:1px solid var(--rule);background:var(--paper)}
+
+/* trap */
+.trap{border:1.5px dashed var(--red);border-radius:4px;padding:12px 16px;margin:16px 0;background:var(--red-soft)}
+.trap .lab{font-family:var(--display);font-stretch:110%;text-transform:uppercase;letter-spacing:.08em;font-size:.7rem;color:var(--red);font-weight:700}
+.trap ul{margin:6px 0 0;padding-left:1.1em}
+.trap li{margin:4px 0}
+.goprac{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:28px;padding-top:16px;border-top:2px solid var(--ink)}
+.btn{font-family:var(--display);font-stretch:106%;font-weight:700;font-size:.9rem;border:1.5px solid var(--ledger);background:var(--ledger);color:var(--sheet);padding:8px 16px;border-radius:999px;cursor:pointer;text-decoration:none}
+.btn.ghost{background:transparent;color:var(--ledger)}
+.btn:hover{filter:brightness(1.08)}
+
+/* ---------- practice ---------- */
+.ptop{display:flex;flex-direction:column;gap:14px}
+.filters{display:flex;flex-direction:column;gap:10px}
+.frow{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.frow .lbl{font-family:var(--display);font-stretch:110%;text-transform:uppercase;letter-spacing:.08em;font-size:.68rem;color:var(--muted);width:76px}
+.chip{font-family:var(--display);font-size:.84rem;border:1px solid var(--rule);background:var(--sheet);color:var(--ink);padding:5px 11px;border-radius:999px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--sheet);border-color:var(--ink)}
+.score{display:flex;flex-wrap:wrap;gap:8px 22px;align-items:baseline;font-family:var(--mono);font-size:.85rem;color:var(--muted)}
+.score b{font-size:1.3rem;color:var(--ink);font-weight:600}
+.bar{height:6px;background:var(--rule);border-radius:3px;overflow:hidden;margin-top:6px;max-width:420px}
+.bar i{display:block;height:100%;background:var(--ledger);width:0}
+.cards{display:flex;flex-direction:column;gap:16px;margin-top:20px}
+.card{background:var(--sheet);border:1px solid var(--rule);border-radius:6px;padding:18px clamp(14px,3vw,26px);min-width:0}
+.card .meta{display:flex;flex-wrap:wrap;gap:6px 14px;font-family:var(--mono);font-size:.74rem;color:var(--muted);margin-bottom:8px}
+.card .meta .src{color:var(--ledger);font-weight:600}
+.card .q{font-size:1.02rem;margin:4px 0 10px;max-width:72ch}
+.card .q .stmt{display:block;margin:6px 0 0 0;padding-left:14px}
+.opts{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+.opt{display:grid;grid-template-columns:28px 1fr;gap:8px;align-items:baseline;text-align:left;font-family:var(--body);font-size:.98rem;color:var(--ink);background:var(--paper);border:1px solid var(--rule);border-radius:4px;padding:8px 12px;cursor:pointer}
+.opt .k{font-family:var(--mono);font-size:.8rem;color:var(--muted)}
+.opt:hover:not([disabled]){border-color:var(--ledger)}
+.opt[disabled]{cursor:default}
+.opt.right{background:var(--ledger-soft);border-color:var(--ledger)}
+.opt.right .k{color:var(--ledger);font-weight:600}
+.opt.wrong{background:var(--red-soft);border-color:var(--red)}
+.opt.wrong .k{color:var(--red);font-weight:600}
+.verdict{font-family:var(--display);font-stretch:108%;font-weight:700;margin-top:12px}
+.verdict.ok{color:var(--ledger)}
+.verdict.ko{color:var(--red)}
+.why{margin-top:6px;padding:10px 14px;border-left:3px solid var(--ledger);background:var(--paper);border-radius:0 4px 4px 0;font-size:.97rem}
+.note{margin-top:8px;font-size:.88rem;color:var(--muted);font-style:italic}
+.cardfoot{display:flex;gap:10px;margin-top:10px}
+.linkbtn{font-family:var(--display);font-size:.82rem;background:none;border:none;color:var(--muted);text-decoration:underline;cursor:pointer;padding:0}
+.empty{padding:30px;text-align:center;color:var(--muted);border:1px dashed var(--rule);border-radius:6px}
+.fig{margin:10px 0}
+.fig svg{display:block;width:100%;max-width:420px;height:auto}
+.fig .ax{stroke:var(--muted);stroke-width:1.2;fill:none}
+.fig .fr{stroke:var(--ledger);stroke-width:2.2;fill:none}
+.fig .frl{stroke:var(--muted);stroke-width:1.4;fill:none;stroke-dasharray:4 4}
+.fig .tl{stroke:var(--red);stroke-width:2;fill:none}
+.fig .pt{fill:var(--ink)}
+.fig text{fill:var(--muted);font-family:var(--mono);font-size:10px}
+
+/* formula sheet */
+.fs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,330px),1fr));gap:16px;margin-top:18px}
+.fs section{background:var(--sheet);border:1px solid var(--rule);border-radius:6px;padding:16px 18px;min-width:0}
+.fs h3{margin:0 0 6px;padding:0;border:none;font-size:1.02rem}
+.fs dl{margin:0}
+.fs dt{font-family:var(--display);font-size:.82rem;color:var(--muted);margin-top:10px}
+.fs dd{margin:2px 0 0;font-family:var(--mono);font-size:.88rem}
+</style>
+
+<header class="top">
+  <div class="top-in">
+    <div class="brand"><b>Corporate Finance Midterm</b><span>HBS Finance tutorial · Golden State Canning · $ thousands</span></div>
+    <nav class="modes" aria-label="Sections">
+      <a href="#learn" data-mode="learn">Learn</a>
+      <a href="#practice" data-mode="practice">Exam questions</a>
+      <a href="#formulas" data-mode="formulas">Formula sheet</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap" id="wrap">
+  <aside class="index" id="index" aria-label="Chapters">
+    <h4>Chapters</h4>
+    <ol>
+      <li><a href="#start"><span class="no">00</span>Start here</a></li>
+      <li><a href="#ch1"><span class="no">01</span>Ratio analysis</a></li>
+      <li><a href="#ch2"><span class="no">02</span>Cash cycle &amp; growth</a></li>
+      <li><a href="#ch3"><span class="no">03</span>Forecasting</a></li>
+      <li><a href="#ch4"><span class="no">04</span>Rearranging statements</a></li>
+      <li><a href="#ch5"><span class="no">05</span>Capital structure</a></li>
+      <li><a href="#ch6"><span class="no">06</span>Time value &amp; projects</a></li>
+      <li><a href="#ch7"><span class="no">07</span>Risk &amp; return</a></li>
+      <li><a href="#ch8"><span class="no">08</span>Valuing a business</a></li>
+    </ol>
+  </aside>
+
+<main>
+<!-- ======================= LEARN ======================= -->
+<section id="learn" data-section="learn">
+
+<article class="sheet" id="start">
+  <div class="prose">
+    <div class="eyebrow">Start here</div>
+    <h1>Everything in the course, explained from zero</h1>
+    <p class="lede">The whole course follows one story. You are thinking about buying <b>Golden State Canning</b>, a small family company that cans fruit, from its owner <b>Mr. Cota</b>. Every chapter answers one question you would ask before buying it.</p>
+    <ol class="steps">
+      <li><b>How healthy is the company?</b> Ratio analysis (ch. 1).</li>
+      <li><b>Where does its cash come from and go?</b> Cash cycle and growth (ch. 2).</li>
+      <li><b>How much money will it need in the future?</b> Forecasting (ch. 3).</li>
+      <li><b>How do we read the balance sheet like a finance person?</b> Rearranging statements (ch. 4).</li>
+      <li><b>How much should it borrow?</b> Capital structure (ch. 5).</li>
+      <li><b>Is a new project worth doing?</b> Time value of money and NPV (ch. 6).</li>
+      <li><b>Which interest rate should we use to judge it?</b> Risk and return, CAPM, WACC (ch. 7).</li>
+      <li><b>So what is the whole company worth?</b> Valuing a business with a DCF (ch. 8).</li>
+    </ol>
+    <p>Background you need: Mr. Cota ran the company for years, hired an outside manager in 2005–2006 (results got worse), then came back in 2007. All Golden State figures are in <b>thousands of dollars</b>.</p>
+    <div class="how">
+      <div><b>1 · Read a chapter</b><span>Plain-English idea, formula, worked example, exam traps.</span></div>
+      <div><b>2 · Do its exam questions</b><span>150 real questions from the Pre-test and Final Exams 1 and 2, with explanations.</span></div>
+      <div><b>3 · Review the formula sheet</b><span>Every formula on one page for the night before.</span></div>
+    </div>
+  </div>
+
+  <h3>Golden State's financial statements</h3>
+  <p class="prose">You will see these numbers again and again. The <b>income statement</b> shows a full year of activity: sales at the top, then each cost is subtracted until net income. Note that in this course <b>depreciation is subtracted before gross profit</b>.</p>
+  <div class="tablewrap"><table class="ledger">
+    <thead><tr><th>Income statement</th><th class="n">2004</th><th class="n">2005</th><th class="n">2006</th><th class="n">2007</th></tr></thead>
+    <tbody>
+      <tr><td>Sales</td><td class="n">808.0</td><td class="n">813.0</td><td class="n">802.0</td><td class="n">842.0</td></tr>
+      <tr><td>− Cost of goods sold (COGS)</td><td class="n neg">(607.2)</td><td class="n neg">(600.3)</td><td class="n neg">(587.9)</td><td class="n neg">(600.8)</td></tr>
+      <tr><td>− Depreciation</td><td class="n neg">(23.0)</td><td class="n neg">(21.6)</td><td class="n neg">(37.7)</td><td class="n neg">(39.1)</td></tr>
+      <tr class="tot"><td>Gross profit</td><td class="n">177.8</td><td class="n">191.1</td><td class="n">176.4</td><td class="n">202.1</td></tr>
+      <tr><td>− Selling, general &amp; admin (SG&amp;A)</td><td class="n neg">(133.3)</td><td class="n neg">(166.7)</td><td class="n neg">(156.4)</td><td class="n neg">(134.7)</td></tr>
+      <tr class="tot"><td>Operating profit = EBIT</td><td class="n">44.5</td><td class="n">24.4</td><td class="n">20.0</td><td class="n">67.4</td></tr>
+      <tr><td>− Interest expense</td><td class="n neg">(6.8)</td><td class="n neg">(8.3)</td><td class="n neg">(9.8)</td><td class="n neg">(8.7)</td></tr>
+      <tr><td>Profit before tax</td><td class="n">37.7</td><td class="n">16.1</td><td class="n">10.2</td><td class="n">58.7</td></tr>
+      <tr><td>− Income taxes</td><td class="n neg">(13.6)</td><td class="n neg">(5.8)</td><td class="n neg">(3.7)</td><td class="n neg">(21.1)</td></tr>
+      <tr class="tot"><td>Net income</td><td class="n">24.1</td><td class="n">10.3</td><td class="n">6.5</td><td class="n">37.6</td></tr>
+    </tbody>
+  </table><div class="caption">EBIT = earnings before interest and taxes. Negative numbers are shown in parentheses, as accountants do.</div></div>
+
+  <p class="prose">The <b>balance sheet</b> is a photo taken on one day (December 31). Left side: what the company owns. Right side: who paid for it (lenders and owners). Both sides are always equal.</p>
+  <div class="tablewrap"><table class="ledger">
+    <thead><tr><th>Balance sheet, Dec 31</th><th class="n">2003</th><th class="n">2004</th><th class="n">2005</th><th class="n">2006</th><th class="n">2007</th></tr></thead>
+    <tbody>
+      <tr><td>Cash</td><td class="n">4.1</td><td class="n">4.9</td><td class="n">2.9</td><td class="n">1.1</td><td class="n">5.2</td></tr>
+      <tr><td>Accounts receivable (customers owe us)</td><td class="n">56.9</td><td class="n">61.0</td><td class="n">73.3</td><td class="n">74.7</td><td class="n">70.5</td></tr>
+      <tr><td>Inventories</td><td class="n">8.3</td><td class="n">12.5</td><td class="n">14.1</td><td class="n">16.8</td><td class="n">13.2</td></tr>
+      <tr class="tot"><td>Total current assets</td><td class="n">69.3</td><td class="n">78.4</td><td class="n">90.3</td><td class="n">92.6</td><td class="n">88.9</td></tr>
+      <tr><td>Net fixed assets (plant, machines)</td><td class="n">286.6</td><td class="n">304.6</td><td class="n">361.8</td><td class="n">382.0</td><td class="n">374.9</td></tr>
+      <tr class="tot"><td>Total assets</td><td class="n">355.9</td><td class="n">383.0</td><td class="n">452.1</td><td class="n">474.6</td><td class="n">463.8</td></tr>
+      <tr><td>Current portion of long-term debt</td><td class="n">3.0</td><td class="n">3.0</td><td class="n">5.0</td><td class="n">5.0</td><td class="n">5.0</td></tr>
+      <tr><td>Accounts payable (we owe suppliers)</td><td class="n">11.8</td><td class="n">14.6</td><td class="n">23.2</td><td class="n">31.6</td><td class="n">17.4</td></tr>
+      <tr><td>Other accrued expenses</td><td class="n">5.7</td><td class="n">5.5</td><td class="n">4.1</td><td class="n">11.4</td><td class="n">5.2</td></tr>
+      <tr><td>Revolving credit, bank</td><td class="n">48.4</td><td class="n">51.8</td><td class="n">63.4</td><td class="n">68.6</td><td class="n">45.7</td></tr>
+      <tr class="tot"><td>Total current liabilities</td><td class="n">68.9</td><td class="n">74.9</td><td class="n">95.7</td><td class="n">116.6</td><td class="n">73.3</td></tr>
+      <tr><td>Long-term (mortgage) debt</td><td class="n">45.0</td><td class="n">42.0</td><td class="n">80.0</td><td class="n">75.0</td><td class="n">70.0</td></tr>
+      <tr><td>Net worth (equity)</td><td class="n">242.0</td><td class="n">266.1</td><td class="n">276.4</td><td class="n">283.0</td><td class="n">320.5</td></tr>
+      <tr class="tot"><td>Total liabilities &amp; net worth</td><td class="n">355.9</td><td class="n">383.0</td><td class="n">452.1</td><td class="n">474.6</td><td class="n">463.8</td></tr>
+    </tbody>
+  </table><div class="caption">"Current" means due or turning into cash within one year. Net worth = equity = the owners' stake.</div></div>
+</article>
+
+<!-- ======================= CH 1 ======================= -->
+<article class="sheet" id="ch1">
+<div class="prose">
+  <div class="eyebrow">Chapter 1</div>
+  <h2>Ratio analysis</h2>
+  <p class="lede">A ratio divides one number from the financial statements by another, so you can judge how a company is doing. A ratio on its own means almost nothing: you always <mark>compare it with something</mark>.</p>
+
+  <h3>The six families of ratios</h3>
+  <p>The course sorts ratios into six families. Each one answers a simple question:</p>
+</div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Family</th><th>Question it answers</th><th>Main ratios</th></tr></thead>
+    <tbody>
+      <tr><td><b>Growth</b></td><td>Is the business getting bigger?</td><td>Year-on-year growth, CAGR</td></tr>
+      <tr><td><b>Profitability</b></td><td>How much profit does it make from its sales and capital?</td><td>Gross, operating, net margin; ROA; ROE / ROBE</td></tr>
+      <tr><td><b>Efficiency</b></td><td>How well does it use its assets?</td><td>Asset turnover, inventory turnover, days in inventory, collection period, payables period</td></tr>
+      <tr><td><b>Liquidity</b></td><td>Can it pay what it owes in the next year?</td><td>Current ratio, quick ratio, cash ratio, interval measure</td></tr>
+      <tr><td><b>Leverage</b></td><td>How much debt does it use?</td><td>Debt ratio, debt/equity, equity/assets, times interest earned</td></tr>
+      <tr><td><b>Risk</b></td><td>How uncertain are its results?</td><td>Fixed vs. variable costs</td></tr>
+    </tbody>
+  </table></div>
+<div class="prose">
+  <p>One detail matters a lot: when a ratio mixes the income statement (a full year) with the balance sheet (one date), you must say whether you use the balance sheet from the <b>beginning</b>, the <b>end</b> or the <b>average</b> of the year. Exam questions often hide this.</p>
+
+  <h3>Growth</h3>
+  <p>Growth is the percentage change of something (sales, profit) from one year to the next. To summarize several years in one number, we use the <b>compound average growth rate (CAGR)</b>: the single constant rate that takes you from the starting value to the ending value.</p>
+  <div class="formula"><div class="lab">Formulas</div>
+    <div class="f">Growth<sub>t</sub> = <span class="frac"><span>X<sub>t</sub> − X<sub>t−1</sub></span><span>X<sub>t−1</sub></span></span></div>
+    <div class="f">CAGR = (<span class="frac"><span>End value</span><span>Start value</span></span>)<sup>1/n</sup> − 1</div>
+    <p class="words">n is the number of years <b>between</b> the two values. From 2004 to 2007, n = 3.</p>
+  </div>
+  <h4>Worked example: Golden State sales, 2004 to 2007</h4>
+</div>
+  <div class="tablewrap"><table class="ledger">
+    <thead><tr><th>Step</th><th>Working</th><th class="n">Result</th></tr></thead>
+    <tbody>
+      <tr><td>Growth 2007</td><td class="w">(842.0 − 802.0) ÷ 802.0</td><td class="n">+5.0%</td></tr>
+      <tr><td>Growth 2006</td><td class="w">(802.0 − 813.0) ÷ 813.0</td><td class="n neg">−1.4%</td></tr>
+      <tr><td>Sales CAGR 2004–07</td><td class="w">(842.0 ÷ 808.0)<sup>1/3</sup> − 1</td><td class="n">1.36%</td></tr>
+      <tr><td>Operating profit CAGR 2004–07</td><td class="w">(67.4 ÷ 44.5)<sup>1/3</sup> − 1</td><td class="n">14.84%</td></tr>
+    </tbody>
+  </table><div class="caption">Operating profit grew yearly by −45.07%, −18.11%, then +236.73%, yet its CAGR is a smooth 14.84%.</div></div>
+<div class="prose">
+  <div class="trap"><div class="lab">Exam traps</div><ul>
+    <li>n counts the <b>intervals</b>, not the years listed: 2016, 2017, 2018, 2019 is n = 3.</li>
+    <li>CAGR only looks at the first and last values. Sales of 50 → 30 → 40 → 50 give a CAGR of <b>0%</b>.</li>
+    <li>CAGR is a geometric (compounded) average, not the simple arithmetic average of the yearly rates. It can be positive even if most yearly rates were negative.</li>
+  </ul></div>
+
+  <h3>Profitability</h3>
+  <p><b>Margins</b> tell you how much of each dollar of sales is left after some costs. Each margin goes one step further down the income statement, so normally <mark>gross margin &gt; operating margin &gt; net margin</mark>.</p>
+  <div class="formula"><div class="lab">Formulas</div>
+    <div class="f">Gross margin = <span class="frac"><span>Gross profit</span><span>Sales</span></span> &nbsp; Operating margin = <span class="frac"><span>EBIT</span><span>Sales</span></span> &nbsp; Net margin = <span class="frac"><span>Net income</span><span>Sales</span></span></div>
+    <div class="f">ROE = <span class="frac"><span>Net income</span><span>Equity at end of year</span></span> &nbsp; ROBE = <span class="frac"><span>Net income</span><span>Equity at beginning of year</span></span></div>
+    <div class="f">ROA = <span class="frac"><span>Net income</span><span>Total assets</span></span> &nbsp; Pre-tax ROA = <span class="frac"><span>EBIT</span><span>Total assets</span></span></div>
+    <p class="words">ROBE (return on beginning equity) compares a year's profit with the money the owners had invested at the start of that year.</p>
+  </div>
+</div>
+  <div class="tablewrap"><table class="ledger">
+    <thead><tr><th>Golden State 2007</th><th>Working</th><th class="n">Result</th></tr></thead>
+    <tbody>
+      <tr><td>Gross margin</td><td class="w">202.1 ÷ 842.0</td><td class="n">24.0%</td></tr>
+      <tr><td>Operating margin</td><td class="w">67.4 ÷ 842.0</td><td class="n">8.0%</td></tr>
+      <tr><td>Net margin</td><td class="w">37.6 ÷ 842.0</td><td class="n">4.5%</td></tr>
+      <tr><td>ROE (ending equity)</td><td class="w">37.6 ÷ 320.5</td><td class="n">11.7%</td></tr>
+      <tr><td>ROBE (beginning equity = 2006)</td><td class="w">37.6 ÷ 283.0</td><td class="n">13.3%</td></tr>
+      <tr><td>Pre-tax ROA</td><td class="w">67.4 ÷ 463.8</td><td class="n">14.5%</td></tr>
+    </tbody>
+  </table></div>
+<div class="prose">
+  <div class="trap"><div class="lab">Exam traps</div><ul>
+    <li>Exams love "what happens if…" questions. Walk down the income statement. Example: if <b>depreciation falls</b> (sales and other costs unchanged), gross profit rises (depreciation sits above it), operating profit rises, net income rises, and ROBE rises because beginning equity does not change.</li>
+    <li>ROBE uses <b>last year's</b> equity. Firm Z: net income 40, equity 250 (2017) and 300 (2018). ROBE 2018 = 40 ÷ 250 = 16.0%, not 40 ÷ 300.</li>
+    <li>EBIT and operating profit are the same thing.</li>
+  </ul></div>
+
+  <h3>Efficiency</h3>
+  <p>Efficiency ratios measure how hard the company makes its assets work. A <b>turnover</b> says how many times something "turns" in a year; a <b>days</b> ratio says how many days of activity it represents. They are two views of the same thing.</p>
+  <div class="formula"><div class="lab">Formulas</div>
+    <div class="f">Asset turnover = <span class="frac"><span>Sales</span><span>Total assets</span></span></div>
+    <div class="f">Inventory turnover = <span class="frac"><span>COGS</span><span>Inventory</span></span> &nbsp; Days in inventory = <span class="frac"><span>Inventory</span><span>COGS ÷ 365</span></span></div>
+    <div class="f">Receivables turnover = <span class="frac"><span>Sales</span><span>Receivables</span></span> &nbsp; Collection period = <span class="frac"><span>Receivables</span><span>Sales ÷ 365</span></span></div>
+    <div class="f">Payables period = <span class="frac"><span>Payables</span><span>COGS ÷ 365</span></span></div>
+    <p class="words">Inventory and payables are compared with <b>COGS</b> (they are valued at cost). Receivables are compared with <b>sales</b> (customers owe the selling price). The course assumes credit purchases = COGS.</p>
+  </div>
+</div>
+  <div class="tablewrap"><table class="ledger">
+    <thead><tr><th>Golden State 2007</th><th>Working</th><th class="n">Result</th></tr></thead>
+    <tbody>
+      <tr><td>Asset turnover, beginning assets</td><td class="w">842.0 ÷ 474.6</td><td class="n">1.77×</td></tr>
+      <tr><td>Asset turnover, ending assets</td><td class="w">842.0 ÷ 463.8</td><td class="n">1.82×</td></tr>
+      <tr><td>Asset turnover, average assets</td><td class="w">842.0 ÷ [(463.8 + 474.6) ÷ 2]</td><td class="n">1.79×</td></tr>
+      <tr><td>Inventory turnover</td><td class="w">600.8 ÷ 13.2</td><td class="n">45.5×</td></tr>
+      <tr><td>Days in inventory</td><td class="w">13.2 ÷ (600.8 ÷ 365)</td><td class="n">8.0 days</td></tr>
+      <tr><td>Collection period</td><td class="w">70.5 ÷ (842.0 ÷ 365)</td><td class="n">30.6 days</td></tr>
+      <tr><td>Payables period</td><td class="w">17.4 ÷ (600.8 ÷ 365)</td><td class="n">10.6 days</td></tr>
+    </tbody>
+  </table><div class="caption">8 days of inventory looks tiny because the balance sheet is dated December 31, long after the harvest peak. That is seasonality.</div></div>
+<div class="prose">
+  <div class="trap"><div class="lab">Exam traps</div><ul>
+    <li>You cannot compute days in inventory with sales and operating profit only: you need COGS ("not enough information").</li>
+    <li>Which ratio has sales in the denominator? The <b>collection period</b> (receivables ÷ daily sales). Receivables turnover has sales on top.</li>
+    <li>From the collection period you can recover sales: sales = receivables × 365 ÷ days. 242 × 365 ÷ 93 = $950.</li>
+    <li>High asset turnover with low margins is typical of <b>supermarkets</b>.</li>
+  </ul></div>
+
+  <h3>Liquidity</h3>
+  <p>Liquidity is the ability to pay bills due within a year. We compare liquid assets with current liabilities.</p>
+  <div class="formula"><div class="lab">Formulas</div>
+    <div class="f">Current ratio = <span class="frac"><span>Current assets</span><span>Current liabilities</span></span></div>
+    <div class="f">Quick ratio = <span class="frac"><span>Cash + marketable securities + receivables</span><span>Current liabilities</span></span></div>
+    <div class="f">Cash ratio = <span class="frac"><span>Cash (+ marketable securities)</span><span>Current liabilities</span></span></div>
+    <div class="f">Interval measure = <span class="frac"><span>Cash + marketable securities + receivables</span><span>Average daily operating costs</span></span></div>
+    <p class="words">The quick ratio leaves out inventory because it is the least liquid current asset. The interval measure says how many days the firm could keep running on its liquid assets alone.</p>
+  </div>
+  <p>Golden State: current ratio 2007 = 88.9 ÷ 73.3 = <b>1.21</b> (it was only 0.79 in 2006, under the hired manager). Quick ratio 2007 = (5.2 + 70.5) ÷ 73.3 = <b>1.03</b>. A common rule of thumb is a current ratio above 1.</p>
+
+  <h3>Leverage</h3>
+  <p>Leverage (or "gearing") measures how much the company is financed with debt. Debt creates fixed payments (interest and principal) that make profits more volatile.</p>
+  <div class="formula"><div class="lab">Formulas</div>
+    <div class="f">Debt ratio = <span class="frac"><span>Interest-bearing debt</span><span>Interest-bearing debt + Equity</span></span> &nbsp; Debt/equity = <span class="frac"><span>Debt</span><span>Equity</span></span></div>
+    <div class="f">Equity/assets = <span class="frac"><span>Equity</span><span>Total assets</span></span> = 1 − <span class="frac"><span>Liabilities</span><span>Total assets</span></span></div>
+    <div class="f">Times interest earned = <span class="frac"><span>EBIT</span><span>Interest expense</span></span></div>
+  </div>
+  <p>Golden State 2007: interest-bearing debt = 5.0 + 45.7 + 70.0 = 120.7. Debt ratio = 120.7 ÷ (120.7 + 320.5) = <b>27.4%</b>. Equity/assets = 320.5 ÷ 463.8 = <b>0.69</b>. Times interest earned = 67.4 ÷ 8.7 = <b>7.7×</b>.</p>
+  <p>Leverage and liquidity are different things and do not move together: a firm can have lots of long-term debt and plenty of cash.</p>
+
+  <h3>Risk</h3>
+  <p>The course's risk indicator is the ratio of <b>fixed costs to variable costs</b>. Fixed costs stay the same whatever the sales; variable costs move with sales. More fixed costs means more operating risk, but also <b>operating leverage</b>: when sales grow, profits grow faster.</p>
+
+  <h3>Common-size statements</h3>
+  <p>A common-size statement turns every line into a percentage so that size disappears. Balance sheet lines are divided by <b>total assets</b>; income statement lines by <b>sales</b>. This lets you compare companies of different sizes and spot trends.</p>
+  <p>Example (Billie's Baubles, from the exams): receivables 70 ÷ total assets 190 = <b>36.8%</b>. Golden State 2007: COGS = 71.4% of sales, net fixed assets = 80.8% of total assets.</p>
+  <p>If you know two common-size numbers you can compare them directly: receivables 25% and payables 40% of the same total assets means current ratio = 25 ÷ 40 &lt; 1.</p>
+
+  <h3>How to interpret, and the limits</h3>
+  <p>Compare a ratio with: the company's <b>own past</b> (time trend), <b>peers</b> in the same industry, its <b>budget</b> or targets, and <b>rules of thumb</b>. Limits to quote in an exam:</p>
+  <ul class="clean">
+    <li>Financial statements miss things like market share.</li>
+    <li>Truly similar companies are hard to find.</li>
+    <li>Accounting methods differ across companies and countries, and can change over time.</li>
+    <li>One-off events, discontinued operations and non-operating items distort ratios.</li>
+    <li>Seasonality and business cycles distort ratios.</li>
+    <li>Most ratios use book values, not market values.</li>
+  </ul>
+  <div class="goprac"><button class="btn" data-goch="1" type="button">Practice chapter 1 questions</button><span class="muted" data-count="1"></span></div>
+</div>
+</article>
+
+<!-- ======================= CH 2 ======================= -->
+<article class="sheet" id="ch2">
+<div class="prose">
+  <div class="eyebrow">Chapter 2</div>
+  <h2>Cash cycle and growth</h2>
+  <p class="lede">A profitable company can still go bankrupt if it runs out of cash. Profit follows accounting rules; cash is what actually pays the bills. <mark>Growth makes the cash problem worse.</mark></p>
+
+  <h3>The cash cycle</h3>
+  <p>The cash cycle (also called the operating cycle or the net working capital cycle) is the loop: buy fruit and cans → hold them as inventory → sell to customers on credit → collect the cash → buy again. Golden State must pay for peaches and cans <b>before</b> customers pay it. That gap must be financed by someone (the bank, suppliers, or the owners).</p>
+  <p>When a firm grows, the gap grows too: it uses cash from yesterday's (smaller) sales to buy for tomorrow's (bigger) sales. Some of the cycle comes from the nature of the business (canning is seasonal), but management choices matter too (how much credit to give customers, how much inventory to hold).</p>
+  <div class="formula"><div class="lab">Formula</div>
+    <div class="f">Cash conversion cycle (CCC) = Days in inventory + Collection period − Payables period</div>
+    <p class="words">Days the company's own cash is tied up: money waits in inventory, then in receivables, minus the days suppliers let you wait before paying them.</p>
+  </div>
+  <p>Golden State 2007: 8.0 + 30.6 − 10.6 = <b>28 days</b>. A bank lends dollars, not days, so you then translate the days into an amount: the bigger the business, the bigger the loan for the same number of days.</p>
+  <p><b>To shorten the cycle:</b> hold less inventory, collect from customers faster, or pay suppliers later. If you know three of the four numbers you can solve for the last one: 27 = 110 + 64 − payables period, so payables period = <b>147 days</b>.</p>
+  <div class="trap"><div class="lab">Exam traps</div><ul>
+    <li>More days in inventory or a longer collection period make the cycle <b>longer</b> (worse). A longer payables period makes it <b>shorter</b> (better).</li>
+    <li>Collecting from customers faster than you pay suppliers <b>improves</b> the cycle. Billie's Baubles collects in 64 days and pays in 146 days: that is good, not bad.</li>
+  </ul></div>
+
+  <h3>Sources and uses of funds</h3>
+  <p>A quick way to see where money came from and where it went: take two balance sheets, compute the change in every line, and label each change.</p>
+</div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Change</th><th>On an asset</th><th>On a liability or equity</th></tr></thead>
+    <tbody>
+      <tr><td><b>Increase</b></td><td>Use (cash was spent on it)</td><td>Source (someone gave you money)</td></tr>
+      <tr><td><b>Decrease</b></td><td>Source (it turned into cash)</td><td>Use (you paid someone back)</td></tr>
+    </tbody>
+  </table><div class="caption">Because balance sheets balance, total sources always equal total uses.</div></div>
+  <div class="tablewrap"><table class="ledger">
+    <thead><tr><th>Golden State, 2006 → 2007 (Mr. Cota is back)</th><th class="n">Sources</th><th class="n">Uses</th></tr></thead>
+    <tbody>
+      <tr><td>Receivables fell 74.7 → 70.5</td><td class="n">4.2</td><td class="n"></td></tr>
+      <tr><td>Inventory fell 16.8 → 13.2</td><td class="n">3.6</td><td class="n"></td></tr>
+      <tr><td>Net fixed assets fell 382.0 → 374.9</td><td class="n">7.1</td><td class="n"></td></tr>
+      <tr><td>Equity rose 283.0 → 320.5 (retained profit)</td><td class="n">37.5</td><td class="n"></td></tr>
+      <tr><td>Cash rose 1.1 → 5.2</td><td class="n"></td><td class="n">4.1</td></tr>
+      <tr><td>Payables fell 31.6 → 17.4</td><td class="n"></td><td class="n">14.2</td></tr>
+      <tr><td>Accrued expenses fell 11.4 → 5.2</td><td class="n"></td><td class="n">6.2</td></tr>
+      <tr><td>Revolving bank credit fell 68.6 → 45.7</td><td class="n"></td><td class="n">22.9</td></tr>
+      <tr><td>Mortgage fell 75.0 → 70.0</td><td class="n"></td><td class="n">5.0</td></tr>
+      <tr class="tot"><td>Total</td><td class="n">52.4</td><td class="n">52.4</td></tr>
+    </tbody>
+  </table><div class="caption">Reading: in 2007 Mr. Cota collected receivables, cut inventory and kept his profit, and used that cash to pay suppliers and the bank. Under the hired manager (2004 → 2006) it was the opposite: fixed assets rose by 77.4, financed mostly by more debt and more supplier credit.</div></div>
+<div class="prose">
+
+  <h3>How fast can the company grow?</h3>
+  <p>Two benchmark growth rates tell you how fast a firm can grow with its own profits. First, the <b>retention rate</b> b (also called the <b>plowback ratio</b>) is the share of profit kept in the firm instead of paid as dividends: b = 1 − payout ratio.</p>
+  <div class="formula"><div class="lab">Formulas</div>
+    <div class="f">Internal growth rate = <span class="frac"><span>Net income − Dividends</span><span>Assets at beginning</span></span> = b × ROBA</div>
+    <div class="f">Sustainable growth rate (SGR) = b × ROBE</div>
+    <p class="words">Internal growth: no outside money at all. Sustainable growth: <b>no new shares</b>, and operating <b>and financing</b> ratios stay constant, so the firm borrows just enough to keep its debt ratio unchanged. That extra borrowing is why SGR is higher than the internal rate for a firm with debt.</p>
+  </div>
+  <p>Worked example (Final Exam 2): retention rate 50%, sales 25,000, profit margin 10%, beginning equity 50,000. Net income = 10% × 25,000 = 2,500. ROBE = 2,500 ÷ 50,000 = 5%. <b>SGR = 50% × 5% = 2.5%.</b> The asset turnover and debt figures in the question are distractors.</p>
+  <div class="formula"><div class="lab">DuPont formula</div>
+    <div class="f">ROBE = <span class="frac"><span>Net income</span><span>Sales</span></span> × <span class="frac"><span>Sales</span><span>Beginning assets</span></span> × <span class="frac"><span>Beginning assets</span><span>Beginning equity</span></span></div>
+    <p class="words">Profitability × efficiency × leverage. To raise ROBE (and so SGR), improve one of the three.</p>
+  </div>
+  <div class="trap"><div class="lab">Exam traps</div><ul>
+    <li>The SGR is a <b>benchmark, not a maximum</b>. A firm can grow faster by improving margins, turnover or leverage, or by issuing new shares.</li>
+    <li>Reducing an asset is a <b>source</b>; increasing an asset is a <b>use</b>.</li>
+    <li>Profit is not cash: "profitable but can't pay its bills" is possible (True).</li>
+  </ul></div>
+  <div class="goprac"><button class="btn" data-goch="2" type="button">Practice chapter 2 questions</button><span class="muted" data-count="2"></span></div>
+</div>
+</article>
+
+<!-- ======================= CH 3 ======================= -->
+<article class="sheet" id="ch3">
+<div class="prose">
+  <div class="eyebrow">Chapter 3</div>
+  <h2>Financial forecasting</h2>
+  <p class="lede">Forecasting means building <b>pro forma</b> statements: future income statements and balance sheets. Their most common job is to answer one question: <mark>how much outside money will the plan need?</mark></p>
+
+  <h3>What goes into a forecast</h3>
+  <ul class="clean">
+    <li><b>A business forecast</b>, e.g. "sales grow 6% next year", consistent with the strategy.</li>
+    <li><b>Management policies</b>: how much inventory to keep, credit terms, marketing and R&amp;D spending.</li>
+    <li><b>Economic factors</b>: inflation, interest rates, exchange rates.</li>
+    <li><b>Accounting rules</b>: the balance sheet must balance; retained earnings = last year's + net income − dividends; fixed assets = last year's + capital spending − depreciation.</li>
+  </ul>
+  <p><b>Errors vs. biases.</b> Errors are random mistakes that tend to cancel out over many forecasts. Biases are systematic over- or under-estimates that do not cancel out. Unintended biases should be removed; deliberate ones (a "worst case") should be explained.</p>
+
+  <h3>The external funding need</h3>
+  <div class="formula"><div class="lab">Formula</div>
+    <div class="f">External funding need = Projected total assets − (Projected liabilities + Projected equity)</div>
+    <p class="words">Positive: the plan needs new money (debt or shares). Negative: the plan generates a surplus.</p>
+  </div>
+
+  <h3>The percent-of-sales method</h3>
+  <p>The simplest method assumes many accounts move in proportion to sales. Three steps:</p>
+  <ol class="steps">
+    <li>Sort the accounts. <b>Vary with sales:</b> COGS, SG&amp;A, receivables, inventory, payables. <b>Don't vary with sales:</b> depreciation, interest, bank debt, long-term debt, equity (set separately).</li>
+    <li>For each account that varies, compute its usual % of sales from past years.</li>
+    <li>Apply that % to the forecast sales.</li>
+  </ol>
+  <p>Payables can also be projected from a target payables period (payables = COGS ÷ 365 × target days). Both ways are acceptable.</p>
+
+  <h3>The interest problem (circularity)</h3>
+  <p>Interest depends on how much you borrow. How much you borrow depends on the funding need. The funding need depends on net income, which depends on interest. The way out is to iterate:</p>
+  <ol class="steps">
+    <li>Guess the interest expense.</li>
+    <li>Compute the funding need that results.</li>
+    <li>Assume that need is borrowed and recompute interest (the course uses 8%).</li>
+    <li>Repeat until the interest you get equals the interest you guessed.</li>
+  </ol>
+  <p><b>Seasonality:</b> a pro forma dated December 31 can show a surplus while the firm needs a lot of money at harvest time. Seasonal firms forecast monthly or quarterly.</p>
+
+  <h3>Golden State's expansion plan</h3>
+  <p>If you buy the company, you plan to grow it: cold storage to extend the canning season, new gourmet products, regional distribution, and the jarring line. Key assumptions: existing lines grow 15% a year, COGS 72% of sales (75% for new lines), SG&amp;A 19–21% of sales, $40k a year of maintenance capital spending.</p>
+</div>
+  <div class="tablewrap"><table class="ledger">
+    <thead><tr><th>$ thousands</th><th class="n">2008</th><th class="n">2009</th><th class="n">2010</th><th class="n">2011</th><th class="n">2012</th><th class="n">2013</th></tr></thead>
+    <tbody>
+      <tr><td>Total sales</td><td class="n">892.5</td><td class="n">1,176.4</td><td class="n">1,480.3</td><td class="n">1,882.4</td><td class="n">2,161.0</td><td class="n">2,470.1</td></tr>
+      <tr><td>of which new lines</td><td class="n">0</td><td class="n">150.0</td><td class="n">300.0</td><td class="n">525.0</td><td class="n">600.0</td><td class="n">675.0</td></tr>
+      <tr><td>Operating profit</td><td class="n">68.0</td><td class="n">54.1</td><td class="n">55.7</td><td class="n">115.9</td><td class="n">136.6</td><td class="n">165.3</td></tr>
+      <tr><td>Depreciation</td><td class="n">39.1</td><td class="n">24.0</td><td class="n">27.0</td><td class="n">28.0</td><td class="n">39.0</td><td class="n">46.0</td></tr>
+      <tr><td>Capital expenditures</td><td class="n">39.1</td><td class="n">37.0</td><td class="n">37.0</td><td class="n">42.0</td><td class="n">50.0</td><td class="n">65.0</td></tr>
+    </tbody>
+  </table></div>
+<div class="prose">
+  <h3>Testing a forecast</h3>
+</div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Method</th><th>What changes</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td><b>Sensitivity analysis</b></td><td>One assumption at a time, everything else fixed</td><td>Sales grow 3% instead of 6%</td></tr>
+      <tr><td><b>Scenario analysis</b></td><td>Several assumptions together, telling one coherent story</td><td>A competitor closes half its stores: your sales rise and your COGS rises with them</td></tr>
+      <tr><td><b>Simulation</b></td><td>Probability distributions, run by computer</td><td>Monte Carlo simulation</td></tr>
+    </tbody>
+  </table></div>
+<div class="prose">
+  <div class="trap"><div class="lab">Exam traps</div><ul>
+    <li>"Changing one assumption at a time" is <b>sensitivity</b> analysis, not scenario analysis.</li>
+    <li>Depreciation does <b>not</b> vary directly with sales (it depends on fixed assets).</li>
+    <li>A pro forma balance sheet projects assets, liabilities and equity; revenues and costs belong to the pro forma income statement. Pro formas follow normal accounting rules.</li>
+    <li>Biases cannot always be eliminated: some are deliberate.</li>
+  </ul></div>
+  <div class="goprac"><button class="btn" data-goch="3" type="button">Practice chapter 3 questions</button><span class="muted" data-count="3"></span></div>
+</div>
+</article>
+
+<!-- ======================= CH 4 ======================= -->
+<article class="sheet" id="ch4">
+<div class="prose">
+  <div class="eyebrow">Chapter 4</div>
+  <h2>Rearranging financial statements</h2>
+  <p class="lede">Finance people regroup the accounting statements into two blocks: what <b>creates</b> cash (real activities) and what <b>hands cash to investors</b> (financial activities). Accounting is not wrong; this view is just more useful for valuation.</p>
+
+  <h3>Real vs. financial</h3>
+  <ul class="clean">
+    <li><b>Real activities</b> produce and sell goods: production, sales, R&amp;D, marketing. Their balance sheet items: inventory, receivables, fixed assets, and also <b>accounts payable and accrued operating expenses</b> (they come from running the business).</li>
+    <li><b>Financial activities</b> deal with lenders and shareholders: interest, principal, dividends, issuing debt or shares. Their balance sheet items: <b>interest-bearing debt</b> (short and long term) and equity.</li>
+    <li>On the income statement: sales, COGS, R&amp;D, marketing are real; interest is financial; <b>income tax is both</b>, because it depends on operating profit (real) and is reduced by interest (financial).</li>
+  </ul>
+
+  <h3>The simplified balance sheet</h3>
+  <div class="formula"><div class="lab">Identity</div>
+    <div class="f">Net working capital (NWC) + Net fixed assets (NFA) = Debt + Equity</div>
+    <p class="words">NWC = cash + receivables + inventory − payables − accrued expenses. Payables are subtracted on the left because they are operating, not financing.</p>
+  </div>
+</div>
+  <div class="tablewrap"><table class="ledger">
+    <thead><tr><th>Real side (Dec 31, 2007)</th><th class="n">$k</th><th>Financial side</th><th class="n">$k</th></tr></thead>
+    <tbody>
+      <tr><td>Cash</td><td class="n">5.2</td><td>Current portion of LTD</td><td class="n">5.0</td></tr>
+      <tr><td>Accounts receivable</td><td class="n">70.5</td><td>Revolving credit</td><td class="n">45.7</td></tr>
+      <tr><td>Inventories</td><td class="n">13.2</td><td>Mortgage</td><td class="n">70.0</td></tr>
+      <tr><td>Accounts payable</td><td class="n neg">(17.4)</td><td><b>Total debt</b></td><td class="n"><b>120.7</b></td></tr>
+      <tr><td>Other accrued expenses</td><td class="n neg">(5.2)</td><td><b>Equity</b></td><td class="n"><b>320.5</b></td></tr>
+      <tr><td><b>Net working capital</b></td><td class="n"><b>66.3</b></td><td></td><td class="n"></td></tr>
+      <tr><td><b>Net fixed assets</b></td><td class="n"><b>374.9</b></td><td></td><td class="n"></td></tr>
+      <tr class="tot"><td>Total real</td><td class="n">441.2</td><td>Total financial</td><td class="n">441.2</td></tr>
+    </tbody>
+  </table><div class="caption">The total (441.2) is smaller than accounting total assets (463.8), so ratios like asset turnover change: always say which definition you use.</div></div>
+<div class="prose">
+  <p><b>Why bother?</b> At a glance you see how capital-intensive the company is (fixed assets vs. working capital) and how it is financed. This is the view used for free cash flow and for the debt/equity weights in chapters 7 and 8.</p>
+  <p><b>Tricky items:</b> excess cash and unused land go in a separate box; convertible bonds are part debt, part equity; employee stock options are both real (pay) and financial (securities); "miscellaneous" accounts can be hard to place.</p>
+  <div class="goprac"><button class="btn" data-goch="4" type="button">Practice chapter 4 questions</button><span class="muted" data-count="4"></span></div>
+</div>
+</article>
+
+<!-- ======================= CH 5 ======================= -->
+<article class="sheet" id="ch5">
+<div class="prose">
+  <div class="eyebrow">Chapter 5</div>
+  <h2>Capital structure</h2>
+  <p class="lede">Capital structure is the mix of debt and equity a company uses to pay for its assets. The goal is to <mark>maximize the value of the firm</mark>, which is the same as minimizing its cost of capital.</p>
+
+  <h3>Debt vs. equity</h3>
+</div>
+  <div class="tablewrap"><table>
+    <thead><tr><th></th><th>Debt</th><th>Equity</th></tr></thead>
+    <tbody>
+      <tr><td><b>What it is</b></td><td>A loan: the company <b>borrows</b> and must <b>pay</b> interest and principal</td><td>Ownership of the company</td></tr>
+      <tr><td><b>Type of claim</b></td><td>Fixed claim, set by contract</td><td>Residual claim: whatever is left after lenders</td></tr>
+      <tr><td><b>If not paid</b></td><td>Default: lenders get rights. Default does not automatically mean bankruptcy</td><td>Dividends can be skipped legally; the board decides them</td></tr>
+      <tr><td><b>Bankruptcy</b></td><td>Paid first</td><td>Paid last, can end up worth zero</td></tr>
+      <tr><td><b>Control</b></td><td>Covenants (e.g. debt/equity must stay below 0.5)</td><td>Votes for the board and big decisions, not day-to-day</td></tr>
+      <tr><td><b>Risk and cost</b></td><td>Less risky, so cheaper</td><td>More risky, so more expensive</td></tr>
+    </tbody>
+  </table><div class="caption">Debt features: seniority (who is paid first), security/collateral, covenants, callability (repay early). Limited liability: shareholders can lose their stake, not their house.</div></div>
+<div class="prose">
+
+  <h3>Leverage and ROE</h3>
+  <p>Debt adds a fixed cost (interest). When business is good, owners keep everything above the interest, so ROE is higher. When business is bad, the interest must still be paid, so ROE falls further. <mark>Leverage amplifies ROE in both directions.</mark> The business risk does not disappear: it is concentrated on fewer equity dollars (the "conservation of business risk").</p>
+  <div class="formula"><div class="lab">Formula</div>
+    <div class="f">Net income = (EBIT − Interest) × (1 − t)</div>
+  </div>
+  <p>Illustration (my numbers, no tax): two firms with $1,000 of assets. Firm U is all equity. Firm L has $500 debt at 8% (interest 40) and $500 equity.</p>
+</div>
+  <div class="tablewrap"><table class="ledger">
+    <thead><tr><th>EBIT</th><th class="n">ROE, unlevered</th><th class="n">ROE, levered</th></tr></thead>
+    <tbody>
+      <tr><td>Good year: 150</td><td class="n">150 ÷ 1,000 = 15%</td><td class="n">(150 − 40) ÷ 500 = 22%</td></tr>
+      <tr><td>Bad year: 50</td><td class="n">50 ÷ 1,000 = 5%</td><td class="n">(50 − 40) ÷ 500 = 2%</td></tr>
+    </tbody>
+  </table><div class="caption">Higher expected ROE with debt, but a wider swing: that is the extra risk owners are paid for.</div></div>
+<div class="prose">
+
+  <h3>Modigliani &amp; Miller, Proposition 1 (1958)</h3>
+  <p>In a perfect market, <b>the value of a firm does not depend on its capital structure</b>, only on its assets. Equity gets riskier with debt, but its required return rises by exactly enough to compensate. Five conditions:</p>
+  <ol class="steps">
+    <li>No taxes.</li>
+    <li>No costs of financial distress.</li>
+    <li>Symmetric information (everyone knows the same things).</li>
+    <li>Complete markets (everyone can borrow and lend on the same terms).</li>
+    <li>Investment decisions do not change with financing.</li>
+  </ol>
+  <p><b>Why it must hold: arbitrage.</b> If an indebted firm were worth more than an identical debt-free firm, you would sell shares of the expensive (levered) one and buy shares of the cheap (unlevered) one, borrowing on your own to copy the leverage. That is a risk-free profit, so prices adjust until values are equal.</p>
+  <p>Every other theory comes from <b>relaxing</b> one of these conditions. Under M&amp;M, maximizing firm value and minimizing the cost of capital are the same thing.</p>
+
+  <h3>Relaxing "no taxes": the tax shield</h3>
+  <p>Interest is tax-deductible, dividends are not. So each dollar of interest saves t dollars of tax: this is the <b>interest tax shield</b>.</p>
+  <div class="formula"><div class="lab">Formulas</div>
+    <div class="f">Interest tax shield = Interest × t</div>
+    <div class="f">V<sub>L</sub> = V<sub>U</sub> + PV(tax shields) &nbsp; (permanent debt: PV(tax shields) = t × D)</div>
+    <p class="words">Billie's Baubles: interest 7, tax 35%, tax shield = 7 × 0.35 = $2.45. With taxes only, the "best" structure would be 100% debt, which is unrealistic.</p>
+  </div>
+
+  <h3>Relaxing "no distress costs"</h3>
+  <p><b>Costs of financial distress (CFD)</b> are the extra costs a firm suffers when it cannot pay, or almost cannot pay, its debt.</p>
+  <ul class="clean">
+    <li><b>Direct:</b> attorney and advisor fees, court costs.</li>
+    <li><b>Indirect:</b> customers and suppliers who lose trust, employees who leave, distracted managers.</li>
+    <li>Only count costs caused by the debt, not the recession itself.</li>
+    <li>Lower for firms with tangible, resellable assets (a hotel chain) than for firms whose value is people (an ad agency).</li>
+    <li>The single biggest driver of the probability of distress is <b>the amount of leverage</b>.</li>
+  </ul>
+  <div class="formula"><div class="lab">Static Tradeoff Model</div>
+    <div class="f">PV(CFD) = Probability of distress × PV(costs of distress)</div>
+    <div class="f">V<sub>L</sub> = V<sub>U</sub> + PV(tax shields) − PV(CFD)</div>
+    <p class="words">It relaxes two conditions: <b>taxes</b> and <b>costs of financial distress</b>. Debt helps (tax shield) until distress costs outweigh it, so there is an optimum. Problem: nobody can measure CFD well, so the optimum cannot be located in practice; tax shields are probably overestimated (personal taxes, other tax shields like depreciation).</p>
+  </div>
+
+  <h3>Other theories</h3>
+</div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Theory</th><th>M&amp;M condition relaxed</th><th>Idea</th></tr></thead>
+    <tbody>
+      <tr><td><b>Pecking order</b></td><td>Symmetric information</td><td>Insiders know more, so outsiders charge more for capital, especially equity. Order: <b>internal funds → debt → equity</b>. No single optimal debt ratio. Profitable firms fund themselves and end up with less debt.</td></tr>
+      <tr><td><b>Agency costs</b></td><td>Interests aligned</td><td>Agents (managers) may shirk or take value from principals (owners). Near bankruptcy, shareholders gamble with what is really the lenders' money (firm owes 50,000, assets worth 40,000). Debt also reduces managers' free cash and discretion.</td></tr>
+      <tr><td><b>Product market</b></td><td>Investment unchanged by financing</td><td>Keep debt low so you can credibly fight a new competitor.</td></tr>
+      <tr><td><b>Control &amp; governance</b></td><td></td><td>A family firm borrows rather than issue shares, to keep its votes.</td></tr>
+    </tbody>
+  </table><div class="caption">No model is universally accepted. In the real world, the optimal structure depends on the firm and on economic conditions.</div></div>
+<div class="prose">
+
+  <h3>Payout policy</h3>
+  <p>Two ways to give cash to shareholders: <b>dividends</b> and <b>share buybacks</b>. Without taxes, shareholders are indifferent. When dividends are taxed more than capital gains (course: 30% vs. 15%), buybacks are preferred.</p>
+  <p>When a dividend is paid, the share price falls by the dividend. Example: you bought at $47, the price is $53, a $2 dividend is paid. New price $51, dividend income $2, unrealized gain 51 − 47 = $4.</p>
+  <p>In practice mature firms pay more dividends, young growing firms pay little. Dividends are smoothed over time because investors read them as a signal; buybacks vary with the cycle.</p>
+  <div class="trap"><div class="lab">Exam traps</div><ul>
+    <li>Interest payments are legally required; dividends are not.</li>
+    <li>Debt <b>adds</b> fixed costs; it does not lower them.</li>
+    <li>"Incomplete markets" is not an M&amp;M condition (complete markets is).</li>
+    <li>The pecking order does <b>not</b> imply a unique optimal structure; the static tradeoff does.</li>
+    <li>As EBIT drops, a levered firm's ROE drops <b>more</b> than an unlevered firm's.</li>
+  </ul></div>
+  <div class="goprac"><button class="btn" data-goch="5" type="button">Practice chapter 5 questions</button><span class="muted" data-count="5"></span></div>
+</div>
+</article>
+
+<!-- ======================= CH 6 ======================= -->
+<article class="sheet" id="ch6">
+<div class="prose">
+  <div class="eyebrow">Chapter 6</div>
+  <h2>Time value of money and project valuation</h2>
+  <p class="lede">A dollar today is worth more than a dollar tomorrow, because today's dollar can be invested and earn interest. To compare money received at different dates, you move everything to the same date.</p>
+
+  <h3>Compounding and discounting</h3>
+  <div class="formula"><div class="lab">Formulas</div>
+    <div class="f">Future value: FV = PV × (1 + r)<sup>t</sup></div>
+    <div class="f">Present value: PV = <span class="frac"><span>FV</span><span>(1 + r)<sup>t</sup></span></span></div>
+    <div class="f">Stream of cash flows: PV = <span class="frac"><span>CF<sub>1</sub></span><span>(1 + r)</span></span> + <span class="frac"><span>CF<sub>2</sub></span><span>(1 + r)<sup>2</sup></span></span> + … + <span class="frac"><span>CF<sub>t</sub></span><span>(1 + r)<sup>t</sup></span></span></div>
+    <p class="words">Compounding earns interest on interest. Discounting is the reverse: dividing by (1 + r) for each year of waiting.</p>
+  </div>
+</div>
+  <div class="tablewrap"><table class="ledger">
+    <thead><tr><th>Exercise</th><th>Working</th><th class="n">Answer</th></tr></thead>
+    <tbody>
+      <tr><td>$400 for 7 years at 7%</td><td class="w">400 × 1.07<sup>7</sup></td><td class="n">$642.31</td></tr>
+      <tr><td>Need $5,000 in 15 years at 12%</td><td class="w">5,000 ÷ 1.12<sup>15</sup></td><td class="n">$913.48</td></tr>
+      <tr><td>Need $25,000 in 5 years at 8%</td><td class="w">25,000 ÷ 1.08<sup>5</sup></td><td class="n">$17,014.58</td></tr>
+      <tr><td>Interest earned on $2,000, 3 years at 5%</td><td class="w">2,000 × (1.05<sup>3</sup> − 1)</td><td class="n">$315.25</td></tr>
+      <tr><td>$100 at 5%, 6%, 7%, 8%, 9%</td><td class="w">100 × 1.05 × 1.06 × 1.07 × 1.08 × 1.09</td><td class="n">$140.19</td></tr>
+    </tbody>
+  </table><div class="caption">Simple interest (no interest on interest) gives the wrong answers $596 and $300: classic distractors.</div></div>
+<div class="prose">
+
+  <h3>Perpetuities</h3>
+  <div class="formula"><div class="lab">Formulas</div>
+    <div class="f">Perpetuity: PV = <span class="frac"><span>CF</span><span>r</span></span> &nbsp;&nbsp; Growing perpetuity: PV = <span class="frac"><span>CF<sub>1</sub></span><span>r − g</span></span></div>
+    <p class="words">The first payment arrives in one year. g must be smaller than r. Examples: $100 at 5% → $2,000. $40 growing 4%, discounted at 7% → 40 ÷ 0.03 = $1,333.33. Working backwards: $50 a year worth $454.55 → r = 50 ÷ 454.55 = 11%.</p>
+  </div>
+
+  <h3>The jarring line project</h3>
+  <p>Golden State owns a jarring line. Keep and run it, or sell it now for <b>$10,000</b>? To decide, we count only <b>incremental cash flows</b>: cash that exists only because of the project. Raw materials and sales commissions are incremental costs; the project's sales are revenue.</p>
+</div>
+  <div class="tablewrap"><table class="ledger">
+    <thead><tr><th>Each year</th><th>Working</th><th class="n">$</th></tr></thead>
+    <tbody>
+      <tr><td>Extra sales</td><td class="w">5,000 jars × $3.50</td><td class="n">17,500</td></tr>
+      <tr><td>Gross profit</td><td class="w">23% of sales</td><td class="n">4,025</td></tr>
+      <tr><td>− Sales commissions</td><td class="w">3% × 17,500</td><td class="n neg">(525)</td></tr>
+      <tr><td>= Profit before depreciation</td><td class="w"></td><td class="n">3,500</td></tr>
+      <tr><td>− Depreciation</td><td class="w">non-cash charge</td><td class="n neg">(2,000)</td></tr>
+      <tr><td>= Taxable income</td><td class="w"></td><td class="n">1,500</td></tr>
+      <tr><td>− Tax</td><td class="w">36% × 1,500</td><td class="n neg">(540)</td></tr>
+      <tr><td>= Net income</td><td class="w"></td><td class="n">960</td></tr>
+      <tr class="tot"><td>Operating cash flow</td><td class="w">960 + 2,000 depreciation added back</td><td class="n">2,960</td></tr>
+    </tbody>
+  </table></div>
+<div class="prose">
+  <p>Three ways to get the same 2,960 (know all three):</p>
+  <ol class="steps">
+    <li>Gross profit − commissions − tax = 4,025 − 525 − 540.</li>
+    <li>3,500 × (1 − 0.36) + <b>depreciation tax shield</b> 2,000 × 0.36 = 2,240 + 720.</li>
+    <li>Net income + depreciation = 960 + 2,000.</li>
+  </ol>
+  <div class="formula"><div class="lab">Depreciation tax shield</div>
+    <div class="f">Depreciation tax shield = Depreciation × t</div>
+    <p class="words">A $100,000 machine depreciated straight-line over 8 years: 12,500 a year × 36% = $4,500 a year.</p>
+  </div>
+  <p>The line also needs $800 of extra inventory in year 1 (2009), so the first cash flow is 2,960 − 800 = 2,160. Cash flows start one year from now.</p>
+</div>
+  <div class="tablewrap"><table class="ledger">
+    <thead><tr><th></th><th class="n">2009</th><th class="n">2010</th><th class="n">2011</th><th class="n">2012</th><th class="n">2013</th></tr></thead>
+    <tbody>
+      <tr><td>Cash flow</td><td class="n">2,160</td><td class="n">2,960</td><td class="n">2,960</td><td class="n">2,960</td><td class="n">2,960</td></tr>
+      <tr><td>Discount factor 1 ÷ 1.08<sup>t</sup></td><td class="n">0.926</td><td class="n">0.857</td><td class="n">0.794</td><td class="n">0.735</td><td class="n">0.681</td></tr>
+      <tr><td>Present value</td><td class="n">2,000</td><td class="n">2,538</td><td class="n">2,350</td><td class="n">2,176</td><td class="n">2,015</td></tr>
+      <tr><td>Cumulative PV</td><td class="n">2,000</td><td class="n">4,538</td><td class="n">6,887</td><td class="n">9,063</td><td class="n">11,078</td></tr>
+      <tr><td>Cumulative cash (not discounted)</td><td class="n">2,160</td><td class="n">5,120</td><td class="n">8,080</td><td class="n">11,040</td><td class="n">14,000</td></tr>
+    </tbody>
+  </table></div>
+<div class="prose">
+
+  <h3>The four decision criteria</h3>
+  <h4>Net present value (NPV)</h4>
+  <div class="formula"><div class="lab">Formula</div>
+    <div class="f">NPV = <span class="frac"><span>CF<sub>1</sub></span><span>(1 + r)</span></span> + … + <span class="frac"><span>CF<sub>t</sub></span><span>(1 + r)<sup>t</sup></span></span> − Initial investment</div>
+    <p class="words">Jarring line: NPV = 11,078 − 10,000 = <b>$1,078 &gt; 0, keep the line</b>. The right comparison is the $10,000 sale price you give up, not zero.</p>
+  </div>
+  <p><b>Rule:</b> accept if NPV &gt; 0, reject if NPV &lt; 0; NPV = 0 is the marginal case. NPV is the amount by which the project increases the firm's value. The rule assumes the goal is value maximization. To compute it you need: the investment outlays, the discount rate, the incremental cash flows and their timing.</p>
+  <h4>Payback period</h4>
+  <p>The time to get the investment back, without discounting. Jarring line: 8,080 recovered by end-2011, 1,920 still missing, 2,960 ÷ 12 = 247 a month, so about 8 more months: <b>3 years 8 months</b>. Simple, needs no discount rate, but ignores time value and every cash flow after the payback date. A project can pay back fast and still have negative NPV.</p>
+  <h4>Discounted payback</h4>
+  <p>Same idea with discounted cash flows: <b>about 4.5 years</b> for the jarring line. Includes time value but still ignores later cash flows.</p>
+  <h4>Internal rate of return (IRR)</h4>
+  <p>The discount rate that makes NPV = 0. Accept if IRR &gt; cost of capital. Jarring line: at 10% NPV is still +493, so the IRR is higher; Excel gives <b>11.8%</b> &gt; 8%. NPV falls as the rate rises, so if NPV is negative at 8%, the IRR is below 8%.</p>
+  <div class="trap"><div class="lab">Exam traps</div><ul>
+    <li>IRR problems: <b>several IRRs</b> when cash flow signs change more than once; IRR assumes cash is reinvested at the IRR. There is only ever one NPV for a given rate.</li>
+    <li>Positive NPV ⇔ IRR above the discount rate (for a normal project).</li>
+    <li>"The beginning of year 2" = "the end of year 1": discount once.</li>
+    <li>Payback of a project that pays only in year 2 is exactly 2 years, not less.</li>
+  </ul></div>
+  <div class="goprac"><button class="btn" data-goch="6" type="button">Practice chapter 6 questions</button><span class="muted" data-count="6"></span></div>
+</div>
+</article>
+
+<!-- ======================= CH 7 ======================= -->
+<article class="sheet" id="ch7">
+<div class="prose">
+  <div class="eyebrow">Chapter 7</div>
+  <h2>Risk and return</h2>
+  <p class="lede">Real cash flows are uncertain. We handle that in two places: the cash flow on top becomes an <b>expected</b> cash flow, and the discount rate below gets a <b>risk premium</b>. The riskier the project, the higher the rate.</p>
+
+  <h3>Expected cash flow and the risk premium</h3>
+  <div class="formula"><div class="lab">Formulas</div>
+    <div class="f">E(CF) = Σ (probability × cash flow)</div>
+    <div class="f">k = r<sub>f</sub> + risk premium</div>
+    <p class="words">E(CF) weights each outcome by its probability (not a simple average). The mode is the single most likely outcome. r<sub>f</sub> is the risk-free rate (a government bond).</p>
+  </div>
+  <p>If project B is riskier than A with the same expected cash flows, investors will only buy B at a <b>lower price</b>, which gives B a <b>higher expected return</b> and a <b>higher risk premium</b>.</p>
+  <p><b>Opportunity cost of capital</b> = the expected return you could earn on another investment <b>with the same risk</b>. So there is no "free" capital: money lent to you at 0% still costs what you could have earned elsewhere. This is why the discount rate comes from the capital markets.</p>
+
+  <h3>Measuring risk: variance and diversification</h3>
+  <div class="formula"><div class="lab">Formulas</div>
+    <div class="f">Variance σ<sup>2</sup> = E[(X − E(X))<sup>2</sup>] &nbsp;&nbsp; Volatility σ = √variance</div>
+    <div class="f">Var(aA + bB) = a<sup>2</sup>Var(A) + b<sup>2</sup>Var(B) + 2ab Cov(A,B)</div>
+    <div class="f">Correlation ρ = <span class="frac"><span>Cov(A,B)</span><span>σ<sub>A</sub> σ<sub>B</sub></span></span> &nbsp; always between −1 and +1</div>
+  </div>
+  <ul class="clean">
+    <li>A portfolio's <b>expected return</b> is the weighted average of the assets' returns.</li>
+    <li>Its <b>standard deviation is not</b>: it is lower whenever ρ &lt; 1. That is the benefit of diversification. With ρ = +1 there is no benefit; with ρ = −1 risk can be removed completely.</li>
+  </ul>
+
+  <h3>The CAPM picture</h3>
+  <p>CAPM assumptions: investors want to maximize wealth, are <b>risk averse</b>, look only at <b>risk and expected return</b>, and returns are normally distributed (bell curve). It does not assume investors minimize risk whatever the return, nor that they are long-term.</p>
+  <ul class="clean">
+    <li>Plot all possible portfolios (expected return vs. standard deviation). The best ones lie on the <b>efficient frontier</b>. The course calls the portfolio with the highest return for a given risk the <b>optimal portfolio</b>.</li>
+    <li>Add the risk-free asset (σ = 0). The line from it that just touches the frontier is the <b>Capital Market Line (CML)</b>; it touches at the <b>market portfolio</b>.</li>
+    <li>On the CML, investors <b>left</b> of the market portfolio hold some T-bills: they are <b>lenders</b>. Investors to the <b>right</b> borrow at r<sub>f</sub> to invest more than 100%: they are <b>borrowers</b>.</li>
+  </ul>
+  <div class="fig" id="learnfig"></div>
+  <p>For one stock, only the risk you cannot diversify away (<b>systematic risk</b>) earns a premium. It is measured by <b>beta</b>. The <b>Security Market Line</b> plots expected return against beta.</p>
+  <div class="formula"><div class="lab">CAPM</div>
+    <div class="f">E(r<sub>x</sub>) = r<sub>f</sub> + β<sub>x</sub> × (R<sub>m</sub> − r<sub>f</sub>) &nbsp;&nbsp; β<sub>x</sub> = <span class="frac"><span>Cov(r<sub>x</sub>, R<sub>m</sub>)</span><span>Var(R<sub>m</sub>)</span></span></div>
+    <p class="words">The market's β is 1; a T-bill's β is 0. β 1.5 means the stock tends to move 1.5× the market (market −20% → stock −30%). The equity market risk premium (R<sub>m</sub> − r<sub>f</sub>) is usually 4–6%; the course uses <b>5%</b>.</p>
+  </div>
+  <p>Example: r<sub>f</sub> 5%, β 1.2, expected market return 12%. E(r) = 5% + 1.2 × (12% − 5%) = <b>13.4%</b>. Careful: 12% is the market return, so the premium is 7%.</p>
+
+  <h3>From Smucker to Golden State: finding the discount rate</h3>
+  <p>Golden State is not listed on the stock market, so it has no beta. We borrow one from a similar listed company, J.M. Smucker (jams and fruit spreads). But Smucker's beta includes Smucker's own debt, so we first remove the debt effect (<b>unlever</b>), then add Golden State's debt (<b>relever</b>).</p>
+  <div class="formula"><div class="lab">Course formulas (simplified, no taxes)</div>
+    <div class="f">β<sub>unlevered</sub> = <span class="frac"><span>E</span><span>V</span></span> × β<sub>equity</sub> &nbsp;&nbsp; β<sub>relevered</sub> = <span class="frac"><span>β<sub>unlevered</sub></span><span>E ÷ V</span></span></div>
+    <div class="f">K<sub>operations</sub> = <span class="frac"><span>D</span><span>V</span></span>K<sub>d</sub> + <span class="frac"><span>E</span><span>V</span></span>K<sub>e</sub> &nbsp;&nbsp; R<sub>assets</sub> = r<sub>f</sub> + β<sub>unlevered</sub> × EMRP</div>
+    <div class="f">WACC = <span class="frac"><span>D</span><span>V</span></span> × K<sub>d</sub> × (1 − t) + <span class="frac"><span>E</span><span>V</span></span> × K<sub>e</sub></div>
+    <p class="words">V = D + E at <b>market values</b> (share price × number of shares). The (1 − t) applies only to debt, because interest is tax-deductible.</p>
+  </div>
+</div>
+  <div class="tablewrap"><table class="ledger">
+    <thead><tr><th>Step</th><th>Smucker</th><th>Golden State</th></tr></thead>
+    <tbody>
+      <tr><td>Debt D</td><td class="w">$695m (book ≈ market)</td><td class="w">target 60% of V</td></tr>
+      <tr><td>Equity E</td><td class="w">$56.10 × 56.78m shares = $3,185m</td><td class="w">target 40% of V</td></tr>
+      <tr><td>D/V ; E/V</td><td class="w">18% ; 82%</td><td class="w">60% ; 40%</td></tr>
+      <tr><td>Equity beta</td><td class="w">0.82 (observed)</td><td class="w">0.67 ÷ 0.40 = <b>1.68</b></td></tr>
+      <tr><td>Unlevered beta</td><td class="w">0.82 × 0.82 = <b>0.67</b></td><td class="w">0.67 (same business)</td></tr>
+      <tr><td>Cost of equity Ke = 5.6% + β × 5%</td><td class="w"><b>9.7%</b></td><td class="w"><b>14.0%</b></td></tr>
+      <tr><td>Cost of debt Kd</td><td class="w">7.0%</td><td class="w">8.0%</td></tr>
+      <tr><td>Pre-tax cost of capital K<sub>operations</sub></td><td class="w">9.2%</td><td class="w">0.6 × 8% + 0.4 × 14% = <b>10.4%</b></td></tr>
+      <tr><td>WACC, t = 36%</td><td class="w">8.76%</td><td class="w">0.6 × 8% × 0.64 + 0.4 × 14% = <b>8.67%</b></td></tr>
+      <tr><td>R<sub>assets</sub> (unlevered)</td><td class="w" colspan="2">5.6% + 0.67 × 5% = <b>8.95% ≈ 9.0%</b></td></tr>
+    </tbody>
+  </table></div>
+<div class="prose">
+  <p>What to remember: Golden State's cost of equity is much higher than Smucker's (14.0% vs. 9.7%) <b>only because of its debt</b>. After tax, the two WACCs are almost identical (8.67% vs. 8.76%) because the businesses have the same risk. With debt, the WACC ends up <b>below</b> the unlevered cost of equity, thanks to the tax shield.</p>
+  <p>Three candidate discount rates: R<sub>assets</sub>, K<sub>operations</sub> (pre-tax WACC) and the WACC. The WACC is the most used, for cash flows as risky as the company as a whole, but it is not always the right choice.</p>
+  <div class="trap"><div class="lab">Exam traps</div><ul>
+    <li>More debt → equity beta <b>rises</b> → cost of equity <b>rises</b>.</li>
+    <li>Unlevering: 0.90 × 5,000 ÷ 6,000 = <b>0.75</b> (multiply by E/V, don't divide).</li>
+    <li>WACC with 30% debt, Kd 7%, Ke 15%, t 36%: 0.3 × 7% × 0.64 + 0.7 × 15% = <b>11.8%</b>.</li>
+    <li>The current ratio has nothing to do with the WACC.</li>
+    <li>Beta measures <b>systematic</b> (non-diversifiable) risk, not total risk.</li>
+  </ul></div>
+  <div class="goprac"><button class="btn" data-goch="7" type="button">Practice chapter 7 questions</button><span class="muted" data-count="7"></span></div>
+</div>
+</article>
+
+<!-- ======================= CH 8 ======================= -->
+<article class="sheet" id="ch8">
+<div class="prose">
+  <div class="eyebrow">Chapter 8</div>
+  <h2>Valuing a business</h2>
+  <p class="lede">Everything comes together: forecast Golden State's cash flows, discount them at the WACC, add a value for the years after the forecast. Result: <mark>about $1.02 million</mark>.</p>
+
+  <h3>Three approaches</h3>
+</div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Approach</th><th>How it works</th><th>Weakness</th></tr></thead>
+    <tbody>
+      <tr><td><b>Balance sheet</b></td><td>Value every asset at market value (intangibles too), subtract operating liabilities, then debt</td><td>Misses the extra value created by combining the assets well (the positive NPV)</td></tr>
+      <tr><td><b>Market</b> (multiples)</td><td>Apply a multiple of sales, earnings or cash flow seen in similar companies or deals</td><td>Only as good as the sample of comparables</td></tr>
+      <tr><td><b>Income</b> (DCF)</td><td>Present value of future cash flows</td><td>Very sensitive to assumptions, especially the terminal value</td></tr>
+    </tbody>
+  </table></div>
+<div class="prose">
+  <div class="formula"><div class="lab">DCF value</div>
+    <div class="f">Value = <span class="frac"><span>FCF<sub>1</sub></span><span>(1 + k)</span></span> + … + <span class="frac"><span>FCF<sub>T</sub></span><span>(1 + k)<sup>T</sup></span></span> + <span class="frac"><span>TV<sub>T</sub></span><span>(1 + k)<sup>T</sup></span></span></div>
+    <p class="words">Three ingredients: (1) forecasts of free cash flow, (2) a discount rate reflecting time value and systematic risk, (3) a terminal value TV for everything after year T.</p>
+  </div>
+
+  <h3>1. Enterprise free cash flow</h3>
+  <div class="formula"><div class="lab">Formula</div>
+    <div class="f">FCF = EBIT × (1 − t) + Depreciation − Capital expenditures − Δ Net working capital</div>
+    <p class="words">Start from operating profit taxed as if there were no debt. Add back depreciation (not cash). Subtract the cash spent on new fixed assets and on extra working capital.</p>
+  </div>
+  <p><b>Not included:</b> interest, dividends, debt repayments, share issues. FCF is the cash the business generates <b>before</b> it is shared out to lenders and shareholders (left side of the rearranged balance sheet).</p>
+</div>
+  <div class="tablewrap"><table class="ledger">
+    <thead><tr><th>Exam example (Billie's Baubles)</th><th>Working</th><th class="n">$</th></tr></thead>
+    <tbody>
+      <tr><td>EBIT × (1 − t)</td><td class="w">150 × (1 − 0.35)</td><td class="n">97.50</td></tr>
+      <tr><td>+ Depreciation</td><td class="w"></td><td class="n">50.00</td></tr>
+      <tr><td>− Capital expenditures</td><td class="w"></td><td class="n neg">(30.00)</td></tr>
+      <tr><td>− Δ NWC</td><td class="w"></td><td class="n neg">(25.00)</td></tr>
+      <tr class="tot"><td>Free cash flow</td><td class="w"></td><td class="n">92.50</td></tr>
+    </tbody>
+  </table><div class="caption">Working backwards also comes up: FCF 31 = 40 × 0.65 + D − 20 − 5, so depreciation D = 30.</div></div>
+<div class="prose">
+
+  <h3>2. Discount rate</h3>
+  <p>The course uses the <b>WACC = 8.7%</b>. Not the cost of equity (14%) or the cost of debt (8%) alone: neither reflects the whole company. Alternatives for the sensitivity test: R<sub>assets</sub> 9.0%, pre-tax cost of capital 10.4%.</p>
+
+  <h3>3. Terminal value</h3>
+  <p>The forecast stops in 2013, but the company keeps running. The terminal value is the company's value at the end of 2013, usually computed as a growing perpetuity.</p>
+  <div class="formula"><div class="lab">Formula</div>
+    <div class="f">TV<sub>2013</sub> = <span class="frac"><span>FCF<sub>2014</sub></span><span>k − g</span></span> &nbsp;&nbsp; with FCF<sub>2014</sub> = FCF<sub>2013</sub> × (1 + g)</div>
+    <p class="words">g must be below k. Reasonable benchmarks for g: long-term GDP growth, long-term inflation, the long-term risk-free rate.</p>
+  </div>
+  <ul class="clean">
+    <li>Naive version: 54.5 × 1.03 ÷ (0.087 − 0.03) ≈ <b>990</b>. But 2013 cash flow is held down by heavy investment.</li>
+    <li>So we use a <b>normalized</b> 2014 cash flow of 88.0 (adjusted margins, capex, depreciation, NWC): 88.0 ÷ (0.087 − 0.03) = <b>1,543</b> (the course rounds to 1,540).</li>
+    <li>Cautious version with g = 0: normalized FCF = EBIT(1 − t), since depreciation = capex and no extra NWC. 88 ÷ 0.087 ≈ <b>1,000</b>.</li>
+    <li>Same cash flow, other growth rates: g 2% → 1,313; g 3% → 1,544; g 4% → 1,872.</li>
+  </ul>
+  <p>The terminal value is most of the total value, so it deserves the most scrutiny.</p>
+
+  <h3>Putting it together</h3>
+</div>
+  <div class="tablewrap"><table class="ledger">
+    <thead><tr><th>$ thousands</th><th class="n">2008</th><th class="n">2009</th><th class="n">2010</th><th class="n">2011</th><th class="n">2012</th><th class="n">2013</th></tr></thead>
+    <tbody>
+      <tr><td>Free cash flow</td><td class="n">45.0</td><td class="n neg">(36.2)</td><td class="n neg">(6.1)</td><td class="n">18.1</td><td class="n">47.3</td><td class="n">54.5</td></tr>
+      <tr><td>+ Terminal value</td><td class="n"></td><td class="n"></td><td class="n"></td><td class="n"></td><td class="n"></td><td class="n">1,540.0</td></tr>
+      <tr><td>Discount factor 1 ÷ 1.087<sup>t</sup></td><td class="n">0.920</td><td class="n">0.846</td><td class="n">0.779</td><td class="n">0.716</td><td class="n">0.659</td><td class="n">0.606</td></tr>
+      <tr><td>Present value</td><td class="n">41.4</td><td class="n neg">(30.6)</td><td class="n neg">(4.8)</td><td class="n">13.0</td><td class="n">31.2</td><td class="n">966.6</td></tr>
+      <tr class="tot"><td>DCF value</td><td colspan="6" class="n">1,016.8 ≈ $1.02 million</td></tr>
+    </tbody>
+  </table><div class="caption">The course counts 2008 as year 1. Cash flows are negative in 2009–2010 because of the expansion spending.</div></div>
+<div class="prose">
+
+  <h3>Sensitivity analysis</h3>
+</div>
+  <div class="tablewrap"><table class="ledger">
+    <thead><tr><th>What if…</th><th class="n">Value ($k)</th><th class="n">Change</th></tr></thead>
+    <tbody>
+      <tr><td>Base case: existing lines grow 15%, WACC 8.7%</td><td class="n">1,020</td><td class="n"></td></tr>
+      <tr><td>Existing lines grow 10% instead of 15% (terminal value 1,091.9)</td><td class="n">716.8</td><td class="n neg">−29.5%</td></tr>
+      <tr><td>WACC 8.0% instead of 8.7% (terminal value 1,912.6)</td><td class="n">1,291</td><td class="n">+27%</td></tr>
+    </tbody>
+  </table></div>
+<div class="prose">
+  <p>Other "what if" questions: growth too optimistic? Premium prices impossible? New products cost more or come late? The hard part is knowing which inputs deserve the most attention.</p>
+  <p><b>What the number means:</b> $1.02m is what the business is worth <b>to you</b>, with your plan. It is not automatically the price to offer. The NPV of the purchase = value of the company − price paid. Buying for less than it is worth to you creates value for you.</p>
+  <div class="goprac"><button class="btn" data-goch="8" type="button">Practice chapter 8 questions</button><span class="muted" data-count="8"></span></div>
+</div>
+</article>
+</section>
+
+<!-- ======================= PRACTICE ======================= -->
+<section id="practice" data-section="practice" hidden>
+  <div class="sheet">
+    <div class="ptop">
+      <div class="prose">
+        <div class="eyebrow">Exam questions</div>
+        <h1>150 real questions, corrected</h1>
+        <p class="lede">These are the Pre-test, Final Exam 1 and Final Exam 2 of the course. Click an answer to see if you are right and why. Your answers stay in this browser.</p>
+      </div>
+      <div class="filters">
+        <div class="frow" id="fsrc"><span class="lbl">Exam</span></div>
+        <div class="frow" id="fch"><span class="lbl">Chapter</span></div>
+        <div class="frow" id="fview"><span class="lbl">Show</span></div>
+      </div>
+      <div>
+        <div class="score" id="score"></div>
+        <div class="bar"><i id="bar"></i></div>
+      </div>
+      <div class="frow"><button class="btn ghost" id="reset" type="button">Reset my answers</button></div>
+    </div>
+  </div>
+  <div class="cards" id="cards"></div>
+</section>
+
+<!-- ======================= FORMULAS ======================= -->
+<section id="formulas" data-section="formulas" hidden>
+  <div class="sheet">
+    <div class="prose">
+      <div class="eyebrow">Formula sheet</div>
+      <h1>Every formula on one page</h1>
+      <p class="lede">Read this the night before. t = tax rate, r or k = discount rate, g = growth rate, D = debt, E = equity, V = D + E.</p>
+    </div>
+  </div>
+  <div class="fs">
+    <section><h3>1 · Ratios</h3><dl>
+      <dt>Growth</dt><dd>(X<sub>t</sub> − X<sub>t−1</sub>) ÷ X<sub>t−1</sub></dd>
+      <dt>CAGR</dt><dd>(End ÷ Start)<sup>1/n</sup> − 1, n = intervals</dd>
+      <dt>Margins</dt><dd>Gross profit, EBIT, net income ÷ Sales</dd>
+      <dt>ROE / ROBE</dt><dd>NI ÷ ending equity / NI ÷ beginning equity</dd>
+      <dt>ROA / pre-tax ROA</dt><dd>NI ÷ total assets / EBIT ÷ total assets</dd>
+      <dt>Asset turnover</dt><dd>Sales ÷ total assets</dd>
+      <dt>Inventory turnover / days</dt><dd>COGS ÷ inventory / inventory ÷ (COGS/365)</dd>
+      <dt>Receivables turnover / collection period</dt><dd>Sales ÷ AR / AR ÷ (Sales/365)</dd>
+      <dt>Payables period</dt><dd>AP ÷ (COGS/365)</dd>
+      <dt>Current / quick / cash ratio</dt><dd>CA ÷ CL / (cash + securities + AR) ÷ CL / cash ÷ CL</dd>
+      <dt>Interval measure</dt><dd>(cash + securities + AR) ÷ daily operating costs</dd>
+      <dt>Debt ratio</dt><dd>Interest-bearing debt ÷ (debt + equity)</dd>
+      <dt>Equity / assets</dt><dd>1 − liabilities ÷ assets</dd>
+      <dt>Times interest earned</dt><dd>EBIT ÷ interest</dd>
+      <dt>Common size</dt><dd>Balance sheet ÷ total assets; income statement ÷ sales</dd>
+    </dl></section>
+    <section><h3>2 · Cash cycle &amp; growth</h3><dl>
+      <dt>Cash conversion cycle</dt><dd>Days inventory + collection period − payables period</dd>
+      <dt>Source of funds</dt><dd>Asset ↓ or liability/equity ↑</dd>
+      <dt>Use of funds</dt><dd>Asset ↑ or liability/equity ↓</dd>
+      <dt>Retention rate b</dt><dd>1 − payout ratio = (NI − Div) ÷ NI</dd>
+      <dt>Internal growth rate</dt><dd>(NI − Div) ÷ beginning assets = b × ROBA</dd>
+      <dt>Sustainable growth rate</dt><dd>b × ROBE</dd>
+      <dt>DuPont</dt><dd>ROBE = NI/Sales × Sales/Beg. assets × Beg. assets/Beg. equity</dd>
+    </dl></section>
+    <section><h3>3 · Forecasting</h3><dl>
+      <dt>External funding need</dt><dd>Proj. assets − (proj. liabilities + equity)</dd>
+      <dt>Retained earnings</dt><dd>RE<sub>t−1</sub> + NI − dividends</dd>
+      <dt>Net fixed assets</dt><dd>NFA<sub>t−1</sub> + capex − depreciation</dd>
+      <dt>Percent of sales</dt><dd>Account<sub>t</sub> = (account ÷ sales)<sub>hist</sub> × Sales<sub>t</sub></dd>
+    </dl></section>
+    <section><h3>4 · Rearranging</h3><dl>
+      <dt>Simplified balance sheet</dt><dd>NWC + NFA = Debt + Equity</dd>
+      <dt>Net working capital</dt><dd>Cash + AR + inventory − AP − accrued expenses</dd>
+      <dt>Real vs financial</dt><dd>AP, accruals = real · bank and long-term debt = financial · taxes = both</dd>
+    </dl></section>
+    <section><h3>5 · Capital structure</h3><dl>
+      <dt>Net income</dt><dd>(EBIT − interest) × (1 − t)</dd>
+      <dt>Interest tax shield</dt><dd>Interest × t</dd>
+      <dt>M&amp;M with taxes</dt><dd>V<sub>L</sub> = V<sub>U</sub> + PV(TS), PV(TS) = t × D (permanent debt)</dd>
+      <dt>Expected distress cost</dt><dd>PV(CFD) = probability × PV(costs)</dd>
+      <dt>Static tradeoff</dt><dd>V<sub>L</sub> = V<sub>U</sub> + PV(TS) − PV(CFD)</dd>
+      <dt>Pecking order</dt><dd>Internal funds → debt → equity</dd>
+      <dt>Ex-dividend price</dt><dd>Price before − dividend</dd>
+    </dl></section>
+    <section><h3>6 · Time value &amp; projects</h3><dl>
+      <dt>Future value</dt><dd>PV × (1 + r)<sup>t</sup></dd>
+      <dt>Present value</dt><dd>FV ÷ (1 + r)<sup>t</sup></dd>
+      <dt>NPV</dt><dd>Σ CF<sub>t</sub> ÷ (1 + r)<sup>t</sup> − investment; accept if &gt; 0</dd>
+      <dt>IRR</dt><dd>Rate where NPV = 0; accept if &gt; cost of capital</dd>
+      <dt>Operating cash flow</dt><dd>NI + depreciation = (Rev − cash costs)(1 − t) + dep × t</dd>
+      <dt>Depreciation tax shield</dt><dd>Depreciation × t</dd>
+      <dt>Perpetuity</dt><dd>CF ÷ r</dd>
+      <dt>Growing perpetuity</dt><dd>CF<sub>1</sub> ÷ (r − g), g &lt; r</dd>
+    </dl></section>
+    <section><h3>7 · Risk &amp; return</h3><dl>
+      <dt>Expected cash flow</dt><dd>Σ probability × CF</dd>
+      <dt>Discount rate</dt><dd>k = r<sub>f</sub> + risk premium</dd>
+      <dt>Portfolio variance</dt><dd>a²σ<sub>A</sub>² + b²σ<sub>B</sub>² + 2ab Cov(A,B)</dd>
+      <dt>Correlation</dt><dd>ρ = Cov(A,B) ÷ (σ<sub>A</sub>σ<sub>B</sub>), −1 ≤ ρ ≤ 1</dd>
+      <dt>Beta</dt><dd>Cov(r<sub>x</sub>, R<sub>m</sub>) ÷ Var(R<sub>m</sub>); market 1, T-bill 0</dd>
+      <dt>CAPM</dt><dd>E(r) = r<sub>f</sub> + β × (R<sub>m</sub> − r<sub>f</sub>), EMRP ≈ 5%</dd>
+      <dt>Unlever / relever</dt><dd>β<sub>U</sub> = (E/V) × β<sub>E</sub> · β<sub>E</sub> = β<sub>U</sub> ÷ (E/V)</dd>
+      <dt>Pre-tax cost of capital</dt><dd>(D/V)Kd + (E/V)Ke</dd>
+      <dt>R<sub>assets</sub></dt><dd>r<sub>f</sub> + β<sub>U</sub> × EMRP</dd>
+      <dt>WACC</dt><dd>(D/V) × Kd × (1 − t) + (E/V) × Ke</dd>
+    </dl></section>
+    <section><h3>8 · Valuing a business</h3><dl>
+      <dt>Free cash flow</dt><dd>EBIT(1 − t) + dep − capex − ΔNWC</dd>
+      <dt>Terminal value</dt><dd>FCF<sub>T+1</sub> ÷ (k − g)</dd>
+      <dt>DCF value</dt><dd>Σ FCF<sub>t</sub> ÷ (1 + k)<sup>t</sup> + TV<sub>T</sub> ÷ (1 + k)<sup>T</sup></dd>
+      <dt>NPV of an acquisition</dt><dd>Value of company − price paid</dd>
+      <dt>Golden State key numbers</dt><dd>WACC 8.7% · TV 1,540 · value ≈ $1.02m</dd>
+    </dl></section>
+  </div>
+</section>
+</main>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+/* ---------- figures used by questions ---------- */
+var BIS = '<div class="tablewrap"><table class="ledger"><thead><tr><th>Billie’s Baubles · income statement 2019</th><th class="n">$</th></tr></thead><tbody>'
+ + '<tr><td>Sales</td><td class="n">400</td></tr><tr><td>− Cost of goods sold</td><td class="n">100</td></tr><tr><td>− Depreciation</td><td class="n">50</td></tr>'
+ + '<tr class="tot"><td>Gross profit</td><td class="n">250</td></tr><tr><td>− S, G &amp; A expenses</td><td class="n">100</td></tr><tr class="tot"><td>Operating profit</td><td class="n">150</td></tr>'
+ + '<tr><td>− Interest expense</td><td class="n">7</td></tr><tr><td>Profit before tax</td><td class="n">143</td></tr><tr><td>− Tax expense</td><td class="n">40</td></tr><tr class="tot"><td>Net income</td><td class="n">103</td></tr></tbody></table></div>';
+var BBS = '<div class="tablewrap"><table class="ledger"><thead><tr><th>Billie’s Baubles · balance sheet 12/31/19</th><th class="n">$</th><th>Liabilities and net worth</th><th class="n">$</th></tr></thead><tbody>'
+ + '<tr><td>Cash</td><td class="n">50</td><td>Accounts payable</td><td class="n">40</td></tr>'
+ + '<tr><td>Accounts receivable</td><td class="n">70</td><td>Other accrued liabilities</td><td class="n">25</td></tr>'
+ + '<tr><td>Inventory</td><td class="n">30</td><td>Revolving bank debt</td><td class="n">40</td></tr>'
+ + '<tr class="tot"><td>Total current assets</td><td class="n">150</td><td>Total current liabilities</td><td class="n">105</td></tr>'
+ + '<tr><td>Net fixed assets</td><td class="n">40</td><td>Long-term debt</td><td class="n">25</td></tr>'
+ + '<tr><td></td><td class="n"></td><td>Net worth</td><td class="n">60</td></tr>'
+ + '<tr class="tot"><td>Total assets</td><td class="n">190</td><td>Total liabilities and net worth</td><td class="n">190</td></tr></tbody></table></div>';
+var XYZ = '<div class="tablewrap" style="max-width:320px"><table class="ledger"><thead><tr><th>Year</th><th class="n">Sales</th></tr></thead><tbody>'
+ + '<tr><td>2016</td><td class="n">$50</td></tr><tr><td>2017</td><td class="n">$30</td></tr><tr><td>2018</td><td class="n">$40</td></tr><tr><td>2019</td><td class="n">$50</td></tr></tbody></table></div>';
+
+function cmlSvg(){
+  var pts=[[150.5,165],[138.1,157.5],[128,150],[120.1,142.5],[114.5,135],[111.1,127.5],[110,120],[111.1,112.5],[114.5,105],[120.1,97.5],[128,90],[138.1,82.5],[150.5,75],[165.1,67.5],[182,60],[201.1,52.5],[222.5,45],[246.1,37.5],[272,30]];
+  var lower=pts.slice(0,7).map(function(p){return p.join(',');}).join(' ');
+  var upper=pts.slice(6).map(function(p){return p.join(',');}).join(' ');
+  return '<div class="fig"><svg viewBox="0 0 320 210" role="img" aria-label="Efficient frontier with a tangent line from the risk-free asset touching it at the market portfolio">'
+   + '<polyline class="ax" points="40,15 40,180 305,180"></polyline>'
+   + '<polyline class="frl" points="'+lower+'"></polyline>'
+   + '<polyline class="fr" points="'+upper+'"></polyline>'
+   + '<line class="tl" x1="40" y1="140" x2="235" y2="25"></line>'
+   + '<circle class="pt" cx="40" cy="140" r="4"></circle><circle class="pt" cx="146" cy="77.6" r="4"></circle>'
+   + '<text x="46" y="156">Risk-free asset</text><text x="154" y="94">Market portfolio</text>'
+   + '<text x="236" y="58">Efficient frontier</text><text x="196" y="22" text-anchor="end">Tangent line</text>'
+   + '<text x="172" y="198" text-anchor="middle">Standard deviation (%)</text>'
+   + '<text x="14" y="98" text-anchor="middle" transform="rotate(-90 14 98)">Expected return (%)</text>'
+   + '</svg></div>';
+}
+var CML = cmlSvg();
+var lf=document.getElementById('learnfig'); if(lf){ lf.innerHTML=CML; }
+
+var CH = {1:"Ratio analysis",2:"Cash cycle & growth",3:"Forecasting",4:"Rearranging statements",5:"Capital structure",6:"Time value & projects",7:"Risk & return",8:"Valuing a business"};
+var SRC = {PT:"Pre-test",F1:"Final Exam 1",F2:"Final Exam 2"};
+var TF = ["True","False"];
+var MISSING = "The data table for this question is an image in the course that could not be retrieved. The answer is the course's official answer; the explanation shows the method.";
+
+/* ---------- question bank: s source, n number, c chapter, q question, o options, a correct index, x explanation ---------- */
+var Q = [
+/* ===== Final Exam 1 ===== */
+{s:"F1",n:1,c:1,q:"Choose the option to correctly complete the following sentence. Operating margin is calculated as:",o:["earnings before interest expense and income tax expense divided by sales.","earnings before interest expense and income tax expense divided by net worth.","net income divided by sales.","net income divided by net worth."],a:0,x:"Operating margin = operating profit (EBIT) ÷ sales. Net income ÷ sales is the net margin; net income ÷ net worth is ROE."},
+{s:"F1",n:2,c:1,fig:"BIS",q:"Presented below is the 2019 income statement for Billie’s Baubles. Which of the following statements are true?<span class='stmt'>I. Net margin is less than operating margin.<br>II. Operating margin is less than gross margin.<br>III. Gross margin is less than net margin.</span>",o:["I only","II only","I and II, but not III","I, II, and III"],a:2,x:"Gross margin = 250 ÷ 400 = 62.5%. Operating margin = 150 ÷ 400 = 37.5%. Net margin = 103 ÷ 400 = 25.75%. So net &lt; operating &lt; gross: I and II are true, III is false."},
+{s:"F1",n:3,c:1,fig:"BBS",q:"Presented below is the 2019 balance sheet for Billie’s Baubles. What was Billie’s Baubles’ current ratio in 2019?",o:["0.55","1.14","1.43","2.31"],a:2,x:"Current ratio = current assets ÷ current liabilities = 150 ÷ 105 = 1.43. (1.14 is the quick ratio.)"},
+{s:"F1",n:4,c:1,q:"A firm has the following data for 2019: sales $500, depreciation $30, interest $50, tax $30, net worth $100 (net worth in 2018 was also $100). In 2020, sales, COGS and SG&amp;A stay the same; depreciation, interest expense and tax expense all decrease. Which statements are true for 2020?<span class='stmt'>I. Gross margin will decrease.<br>II. Operating margin will increase.<br>III. Net income will decrease.<br>IV. Return on beginning equity will increase.</span>",o:["I only","I and II only","II and IV only","III and IV only"],a:2,x:"Walk down the income statement. Lower depreciation: gross profit rises (depreciation sits above gross profit), so I is false; operating profit rises, so II is true. Lower depreciation, interest and tax all raise net income, so III is false. Beginning equity is still 100, so higher net income means higher ROBE: IV is true."},
+{s:"F1",n:5,c:1,fig:"BBS",q:"Presented below is the 2019 balance sheet for Billie’s Baubles. For Billie’s Baubles, common size accounts receivable is equal to ____ and common size revolving credit is equal to ____.",o:["21.0%; 36.8%","21.0%; 34.2%","34.2%; 21.0%","36.8%; 21.0%"],a:3,x:"A common-size balance sheet divides each line by total assets. Receivables = 70 ÷ 190 = 36.8%. Revolving bank debt = 40 ÷ 190 = 21.0%."},
+{s:"F1",n:6,c:1,q:"Company A’s only current asset is accounts receivable and its only current liability is accounts payable. Common size accounts receivable is 25% and common size accounts payable is 40%. Company A’s current ratio ____.",o:["is less than 1.","is equal to 1.","is greater than 1.","cannot be determined from the information given."],a:0,x:"Both numbers are percentages of the same total assets, so current ratio = 25% ÷ 40% = 0.625, which is below 1."},
+{s:"F1",n:7,c:1,q:"A firm has the following data for 2019: sales $300, depreciation $20, interest $40, tax $40, net worth $150 (also $150 in 2018). In 2020, sales, COGS and SG&amp;A stay the same, depreciation increases, interest expense increases, and tax expense decreases. Which is true?<span class='stmt'>I. Gross margin will decrease.<br>II. Operating margin will decrease.<br>III. Net income will increase.<br>IV. Return on beginning equity will increase.</span>",o:["I only","I and II only","I, II and III only","I, II, III, and IV"],a:1,x:"Higher depreciation lowers gross profit and operating profit: I and II are true. Depreciation and interest both rise, which cuts profit before tax; the lower tax only partly offsets it, so net income falls (III false) and ROBE falls (IV false)."},
+{s:"F1",n:8,c:1,fig:"BBS",q:"Presented below is the 2019 balance sheet for Billie’s Baubles. The cash ratio is equal to ____ and the quick ratio is equal to ____.",o:["0.476; 1.143","1.143; 0.476","1.429; 1.143","1.429; 0.476"],a:0,x:"Cash ratio = cash ÷ current liabilities = 50 ÷ 105 = 0.476. Quick ratio = (cash + receivables) ÷ current liabilities = 120 ÷ 105 = 1.143. Inventory is excluded from the quick ratio."},
+{s:"F1",n:9,c:1,fig:"XYZ",q:"Company XYZ’s sales data are presented below. What is Company XYZ’s three-year compound average growth rate in 2019?",o:["0%","7.7%","18.6%","29.1%"],a:0,x:"CAGR = (50 ÷ 50)<sup>1/3</sup> − 1 = 0%. CAGR only uses the first and the last values; the dip in between does not matter."},
+{s:"F1",n:10,c:1,q:"Firm Z had net income of $40 and net worth of $300 in 2018. Its net worth in 2017 was $250. What was Firm Z’s return on beginning equity in 2018?",o:["6.25%","13.3%","16.0%","83.3%"],a:2,x:"ROBE = net income ÷ equity at the beginning of the year (end of 2017) = 40 ÷ 250 = 16.0%. 40 ÷ 300 = 13.3% would be ROE (ending equity): a trap."},
+{s:"F1",n:11,c:2,q:"It is possible for a firm to be profitable from an accounting perspective even if it has difficulty meeting its financial obligations.",o:TF,a:0,x:"Profit follows accounting rules, not cash. A profitable firm, especially a fast-growing one, can run out of cash because it pays suppliers before customers pay it."},
+{s:"F1",n:12,c:2,q:"Which of the following is an example of a source of funds?",o:["Reduction in inventory","Increase in accounts receivable","Increase in goodwill","Purchase of fixed assets"],a:0,x:"Reducing an asset turns it into cash: source. Increasing receivables, goodwill or fixed assets absorbs cash: uses."},
+{s:"F1",n:13,c:2,q:"A firm’s retention rate:<span class='stmt'>I. is the fraction of earnings that is retained by the company.<br>II. is sometimes referred to as the plowback ratio.<br>III. is equal to 1 minus the payout ratio.</span>",o:["I only","II only","I and II only","I, II, and III"],a:3,x:"All three are true: it is the share of profit kept in the firm, also called the plowback ratio, and equals 1 − payout ratio."},
+{s:"F1",n:14,c:2,q:"A firm can improve its cash conversion cycle by:<span class='stmt'>I. increasing its collection period.<br>II. increasing its payables period.<br>III. increasing days in inventory.</span>",o:["I only","II only","I and III only","I, II, and III"],a:1,x:"CCC = days in inventory + collection period − payables period. Only a longer payables period (paying suppliers later) shortens it. I and III lengthen it."},
+{s:"F1",n:15,c:2,q:"In general, a decrease in an asset is considered a use of funds.",o:TF,a:1,x:"False. A decrease in an asset releases cash, so it is a source. Uses are increases in assets or decreases in liabilities and equity."},
+{s:"F1",n:16,c:2,q:"A firm’s sustainable growth rate:<span class='stmt'>I. is the rate at which a company can grow if it does not issue any new external equity.<br>II. is the rate at which a company can grow if it keeps its operating and financing ratios constant.<br>III. is equal to the retention rate times return on beginning equity.</span>",o:["I only","I and II only","I and III only","I, II, and III"],a:3,x:"All three are the course definition: no new shares, constant operating and financing ratios, and SGR = b × ROBE."},
+{s:"F1",n:17,c:3,q:"In financial forecasting, ____ are simply mistakes that tend to cancel out over time, but ____ are systematic tendencies to under or overestimate, and do not generally cancel out over time.",o:["biases; errors","errors; biases","errors; conditional forecasts","conditional forecasts; biases"],a:1,x:"Errors are random and cancel out over many forecasts. Biases are systematic and do not."},
+{s:"F1",n:18,c:3,q:"A pro forma balance sheet can help a manager estimate the external financing the firm needs. The formula is:",o:["projected total assets – projected liabilities + equity","projected total assets – (projected liabilities + equity)","projected liabilities + equity – projected total assets","projected liabilities – equity – projected total assets"],a:1,x:"External funding need = projected total assets − (projected liabilities + equity). Watch the parentheses: the first option adds equity instead of subtracting it."},
+{s:"F1",n:19,c:3,q:"When estimating a pro forma balance sheet, it is appropriate to forecast accounts payable:<span class='stmt'>I. as a percent of sales.<br>II. using a targeted efficiency ratio, such as the expected payables period.</span>",o:["I only","II only","Both I and II","Neither I nor II"],a:2,x:"Both work. Percent of sales is the simple method; a target payables period gives payables = COGS ÷ 365 × target days."},
+{s:"F1",n:20,c:4,q:"When rearranging financial statements, which of the following items is included in financial activities?",o:["Marketing expense","Research and development expense","Interest expense","Sales revenue"],a:2,x:"Financial activities are dealings with investors: interest, principal, dividends, issuing debt or shares. Marketing, R&amp;D and sales are real activities."},
+{s:"F1",n:21,c:4,q:"Which of the following items on the income statement is associated with both real and financial activities?",o:["Sales revenue","Research and development expense","Interest expense","Income tax expense"],a:3,x:"Income tax depends on operating profit (real) and is reduced by the interest deduction (financial), so it belongs to both."},
+{s:"F1",n:22,c:5,q:"Which of the following is a key characteristic of an equity security?",o:["Firms are contractually obligated to pay dividends on equity.","Equity represents a loan to the firm.","Equity represents ownership in a firm.","Equity has priority over debt in bankruptcy."],a:2,x:"Equity is ownership and a residual claim. Dividends are not required, equity is not a loan, and debt is paid first in bankruptcy."},
+{s:"F1",n:23,c:5,q:"A company that issues debt as part of its capital structure is agreeing to ____ money and ____ interest on the debt.",o:["borrow; pay","borrow; receive","lend; receive","lend; pay"],a:0,x:"Issuing debt means the company borrows money and pays interest on it."},
+{s:"F1",n:24,c:5,q:"Which of the following items increases return on beginning equity (ROBE), holding all else equal?",o:["Beginning of year net worth","Net income","Interest expense","Taxes"],a:1,x:"ROBE = net income ÷ beginning equity. More net income raises it; more beginning equity, interest or taxes lower it."},
+{s:"F1",n:25,c:5,q:"Assume M&amp;M Proposition I holds. If the value of a levered firm (VL) is higher than the value of an otherwise identical unlevered firm (VU), an arbitrage opportunity exists for an investor who owns stock in both. This arbitrage involves:",o:["selling some shares in the levered firm and simultaneously buying some shares in the unlevered firm.","selling some shares in the unlevered firm and simultaneously buying some shares in the levered firm.","selling some shares in both firms.","buying more shares in both firms."],a:0,x:"The levered firm is overpriced: sell it, buy the cheaper unlevered firm (borrowing personally to copy the leverage). You lock in a risk-free profit, which pushes the two values back together."},
+{s:"F1",n:26,c:5,q:"In most countries:",o:["corporate interest expenses are not tax-deductible while corporate dividend payments are tax-deductible.","corporate interest expenses are tax-deductible while corporate dividend payments are not tax-deductible.","both corporate interest expenses and corporate dividend payments are tax deductible.","neither corporate interest expenses nor corporate dividend payments are tax deductible."],a:1,x:"Interest is deductible, dividends are not. That difference creates the interest tax shield."},
+{s:"F1",n:27,c:5,q:"For a potential investor, investing in a firm’s debt is less risky than investing in its equity because:<span class='stmt'>I. principal and interest payments are contractually obligated.<br>II. debtholders are paid back before equity holders in case of bankruptcy.<br>III. a firm that includes debt in its capital structure has lower fixed costs than an all-equity firm.</span>",o:["I only","I and II only","I and III only","I, II, and III"],a:1,x:"I and II explain why debt is safer. III is false: debt adds fixed costs (interest), it does not reduce them."},
+{s:"F1",n:28,c:5,q:"In the real world (relaxing the assumptions of M&amp;M Proposition I), optimal capital structure is:",o:["0% debt/100% equity.","50% debt/50% equity.","100% debt/0% equity.","dependent on firm and general economic conditions."],a:3,x:"With taxes, distress costs and other frictions, the best mix depends on each firm (its assets, profits, risk) and on the economy. No single number fits everyone."},
+{s:"F1",n:29,c:5,q:"If a firm defaults on its debt, it is required to file bankruptcy.",o:TF,a:1,x:"False. A default does not automatically lead to bankruptcy: the firm can renegotiate or restructure with its lenders."},
+{s:"F1",n:30,c:5,q:"According to the course, which is the single largest contributor to the probability that a firm ends up in financial distress?",o:["Broad economic conditions","The firm’s industry","The amount of leverage in the firm’s capital structure","The competence of the firm’s management"],a:2,x:"The course says the biggest driver of the probability of distress is how much the firm borrows."},
+{s:"F1",n:31,c:5,q:"Which two M&amp;M Proposition I conditions are relaxed in the Static Tradeoff Model?",o:["Costs of financial distress and symmetric information","Costs of financial distress and taxes","Costs of financial distress and complete markets","Costs of financial distress and invariant investment behavior"],a:1,x:"The Static Tradeoff Model adds taxes (the benefit of debt) and costs of financial distress (the cost of debt) and balances them."},
+{s:"F1",n:32,c:5,q:"According to the Pecking Order theory, which order does a firm prefer when accessing its funding sources?",o:["Debt, equity, internal funds","Equity, debt, internal funds","Internal funds, debt, equity","Internal funds, equity, debt"],a:2,x:"Internal funds first, then debt, equity last. Outsiders fear that insiders sell shares when they are overpriced, so equity is the most expensive."},
+{s:"F1",n:33,c:5,q:"A firm owes its creditors $50,000 but its assets are only worth $40,000. Equity holders want very risky projects (if they do nothing they are wiped out), while debt holders want to avoid them. Which theory represents this?",o:["The static tradeoff theory","An agency cost","A product market model","The asymmetric information of debtholders and equity holders"],a:1,x:"An agency cost between shareholders and creditors: near insolvency, shareholders gamble with what is really the lenders' money."},
+{s:"F1",n:34,c:5,q:"To maintain family control over voting shares, a family-controlled business may avoid issuing equity even if it would otherwise make sense to do so.",o:TF,a:0,x:"True: control and governance. New shares would dilute the family's votes, so it borrows more instead."},
+{s:"F1",n:35,c:6,q:"A perpetuity pays $50 per year forever. If its present value is $454.55, what is the discount rate?",o:["8%","9%","10%","11%"],a:3,x:"PV = CF ÷ r, so r = 50 ÷ 454.55 = 11%."},
+{s:"F1",n:36,c:6,q:"A project requires $40 today. Expected cash flow is $0 in year 1 and $50 in year 2. The discount rate is 9%. What is the NPV?",o:["$2.08","$42.08","$50.00","$100"],a:0,x:"NPV = −40 + 0 ÷ 1.09 + 50 ÷ 1.09<sup>2</sup> = −40 + 42.08 = $2.08."},
+{s:"F1",n:37,c:6,q:"Which NPV decision criteria are true?<span class='stmt'>I. Accept projects for which NPV &gt; 0.<br>II. Projects for which NPV &lt; 0 are marginal.<br>III. Reject projects for which NPV = 0.</span>",o:["I only","II only","II and III only","I, II, and III"],a:0,x:"Accept if NPV &gt; 0, reject if NPV &lt; 0, and NPV = 0 is the marginal case. Statements II and III swap the last two."},
+{s:"F1",n:38,c:6,q:"You invest $400 today for 7 years at 7%, compounded annually. How much will you have at the end?",o:["$596.00","$600.29","$642.31","$680.00"],a:2,x:"FV = 400 × 1.07<sup>7</sup> = $642.31. $596 is simple interest (no interest on interest)."},
+{s:"F1",n:39,c:6,q:"You want $5,000 in 15 years. How much must you invest today at 12% compounded annually?",o:["$333.33","$913.48","$4,464.29","$26,751.25"],a:1,x:"PV = 5,000 ÷ 1.12<sup>15</sup> = 5,000 ÷ 5.474 = $913.48."},
+{s:"F1",n:40,c:8,q:"A firm has EBIT of $40, a tax rate of 35%, free cash flow of $31, capital expenditures of $20 and a change in net working capital of $5. What is its depreciation expense?",o:["$0","$20","$25","$30"],a:3,x:"FCF = EBIT(1 − t) + depreciation − capex − ΔNWC. 31 = 40 × 0.65 + D − 20 − 5 = 26 + D − 25, so D = 30."},
+{s:"F1",n:41,c:6,q:"A firm is considering a project to produce a new product. Which items are potential incremental costs?<span class='stmt'>I. Sales of the new product<br>II. Raw materials needed as input<br>III. Commissions to the sales team to sell the new product</span>",o:["I only","I and II only","II and III only","I, II, and III"],a:2,x:"Incremental costs are extra costs caused by the project: raw materials and sales commissions (like the jarring line's 3% commission). Sales are revenue, not a cost."},
+{s:"F1",n:42,c:6,q:"It is possible for the Payback Period criterion to accept a project while the NPV criterion rejects it.",o:TF,a:0,x:"True. Payback ignores time value and all cash flows after the cutoff, so a project can pay back fast and still have negative NPV."},
+{s:"F1",n:43,c:6,q:"An investment pays $40 in year 1, growing at 4% a year forever. The discount rate is 7%. What is its present value?",o:["$400.00","$571.43","$1000.00","$1333.33"],a:3,x:"Growing perpetuity: PV = CF<sub>1</sub> ÷ (r − g) = 40 ÷ (0.07 − 0.04) = $1,333.33."},
+{s:"F1",n:44,c:7,q:"Project B is riskier than Project A. Therefore B should have a ____ price, a ____ expected return, and a ____ risk premium than A.",o:["higher; higher; higher","higher; higher; lower","lower; higher; higher","lower; lower; higher"],a:2,x:"Investors want more return for more risk. With the same expected cash flows, the riskier project must sell at a lower price, which gives a higher expected return and a higher risk premium."},
+{s:"F1",n:45,c:7,q:"Which of the following is NOT an assumption of the CAPM?",o:["Investors are risk averse: they prefer the less risky of two otherwise identical investments.","Any risky investment can be described by the risk it entails and the expected return it offers.","Returns on risky assets have normal (bell-shaped) distributions.","An investor’s goal is to minimize his risk, even if this results in lower expected returns."],a:3,x:"CAPM investors trade risk off against return and maximize wealth; they do not minimize risk whatever it costs. The other three are CAPM assumptions."},
+{s:"F1",n:46,c:7,q:"An equally weighted portfolio of two risky assets A and B gives diversification benefits (lower volatility) as long as their correlation coefficient is:",o:["1","greater than 1","less than 1","not equal to zero"],a:2,x:"Any correlation below +1 reduces portfolio volatility. Only perfectly correlated assets give no benefit. (A correlation can never exceed 1.)"},
+{s:"F1",n:47,c:7,fig:"CML",q:"In the following plot, the line drawn tangent to the efficient frontier is called the:",o:["Capital allocation line.","Capital market line.","Security characteristic line.","Security market line."],a:1,x:"The line from the risk-free asset tangent to the efficient frontier at the market portfolio is the Capital Market Line. The Security Market Line plots return against beta, not standard deviation."},
+{s:"F1",n:48,c:7,q:"A company has a beta of 0.90. The market value of its equity is $5,000 and the market value of the company is $6,000. What is its unlevered beta?",o:["0.75","0.90","1.00","1.08"],a:0,x:"Course formula: β unlevered = (E ÷ V) × β equity = (5,000 ÷ 6,000) × 0.90 = 0.75."},
+{s:"F1",n:49,c:7,q:"Debt is 30% of the capital structure, cost of debt 7%, cost of equity 15%, tax rate 36%. What is the WACC?",o:["11.0%","11.3%","11.8%","12.6%"],a:2,x:"WACC = 0.30 × 7% × (1 − 0.36) + 0.70 × 15% = 1.34% + 10.50% = 11.8%."},
+{s:"F1",n:50,c:7,q:"The correlation coefficient between any two stocks is constrained to be:",o:["between –1 and 1.","between –1 and 0.","between 0 and 1.","less than 1."],a:0,x:"ρ = Cov(A,B) ÷ (σ<sub>A</sub>σ<sub>B</sub>) always lies between −1 and +1."},
+
+/* ===== Final Exam 2 ===== */
+{s:"F2",n:1,c:5,q:"An increase in financial leverage generally results in a higher return on equity (ROE).",o:TF,a:0,x:"True. More debt raises expected ROE (as long as assets earn more than the debt costs), and also makes ROE more volatile."},
+{s:"F2",n:2,c:1,q:"Leverage and liquidity generally rise or fall together.",o:TF,a:1,x:"False. Leverage measures debt in the capital structure; liquidity measures the ability to pay short-term bills. They are unrelated: a firm can have heavy long-term debt and lots of cash."},
+{s:"F2",n:3,c:2,q:"It is possible for a company to grow faster than its sustainable growth rate.",o:TF,a:0,x:"True. The SGR is a benchmark, not a ceiling: improve margins, turnover or leverage, or issue new shares."},
+{s:"F2",n:4,c:1,q:"Which of the following ratios uses sales in the denominator?",o:["Days in inventory","Receivables turnover","Cash ratio","Average collection period"],a:3,x:"Average collection period = receivables ÷ (sales/365): sales is in the denominator. Receivables turnover = sales ÷ receivables (sales on top). Days in inventory uses COGS."},
+{s:"F2",n:5,c:1,q:"For a levered firm, EBIT is equivalent to:",o:["Net income","Pro forma earnings","Operating profit","Net income before taxes"],a:2,x:"EBIT (earnings before interest and taxes) is operating profit."},
+{s:"F2",n:6,c:1,q:"Common-size financial statements are constructed in order to:",o:["Adjust for inflation and risk","Facilitate comparisons of different-sized companies","Comply with SEC requirements","All of the above"],a:1,x:"Expressing lines as % of sales or total assets removes the effect of size."},
+{s:"F2",n:7,c:1,q:"A firm has $100 of average inventory, operating profit of $500 and sales of $1,500. What is its days in inventory?",o:["36.5 days","24.3 days","73.0 days","Not enough information"],a:3,x:"Days in inventory = inventory ÷ (COGS/365). COGS is not given, so it cannot be computed. 24.3 days would wrongly use sales."},
+{s:"F2",n:8,c:1,q:"For which business would you expect high asset turnover and low profit margins?",o:["Supermarkets","Banks","Software developers","Airlines"],a:0,x:"Supermarkets sell huge volumes with thin margins."},
+{s:"F2",n:9,c:1,miss:true,q:"Toys by Tom, Inc. has a current ratio of ____, suggesting ____. (Simplified balance sheet and income statement given.)",o:["9.6; reasonable ability to cover interest expense","0.57; potential illiquidity","0.21; potential collection problems","1.75; reasonable liquidity"],a:1,x:"Current ratio = current assets ÷ current liabilities. 0.57 means current liabilities are bigger than current assets: a warning of possible illiquidity. 9.6 sounds like times interest earned, a different ratio."},
+{s:"F2",n:10,c:1,miss:true,q:"What is Toys by Tom, Inc.’s return on assets (ROA)?",o:["6.9%","0.86","18%","1.2"],a:0,x:"ROA = net income ÷ total assets, which gives 6.9%. 0.86 and 1.2 are not percentages, they look like turnovers."},
+{s:"F2",n:11,c:2,q:"Operating cash flow is generated by a company’s daily operations related to production and sales of goods and/or services.",o:TF,a:0,x:"True, as opposed to investing or financing cash flows."},
+{s:"F2",n:12,c:2,q:"In general, the reduction of an asset is a source of funds.",o:TF,a:0,x:"True. Selling inventory or collecting receivables frees cash."},
+{s:"F2",n:13,c:2,q:"The sustainable growth rate is the maximum growth rate achievable over an extended period of time.",o:TF,a:1,x:"False. It is the growth possible with no new equity and constant ratios. Firms can grow faster by changing ratios or issuing shares."},
+{s:"F2",n:14,c:2,q:"How is the cash conversion cycle calculated?",o:["Days in Inventory + Collection Period","Days in Inventory − Payables Period","Days in Inventory + Collection Period − Payables Period","None of the above"],a:2,x:"CCC = days in inventory + collection period − payables period."},
+{s:"F2",n:15,c:2,q:"A company can shorten its cash cycle by:",o:["Reducing inventory turnover","Reducing account payables","Reducing days receivable","None of the above"],a:2,x:"Collecting faster shortens the cycle. Lower inventory turnover means more days in inventory (longer); lower payables means paying suppliers sooner (longer)."},
+{s:"F2",n:16,c:2,q:"A company has a retention rate of 50%, sales of $25,000, beginning equity of $50,000, a profit margin of 10%, asset turnover of 0.75 and debt of $10,000. What is its sustainable growth rate?",o:["2.5%","1.7%","3.75%","Not enough information given"],a:0,x:"Net income = 10% × 25,000 = 2,500. ROBE = 2,500 ÷ 50,000 = 5%. SGR = 50% × 5% = 2.5%. Asset turnover and debt are distractors."},
+{s:"F2",n:17,c:3,q:"Scenario analysis is a way of testing forecasts by changing one assumption at a time.",o:TF,a:1,x:"False. One assumption at a time is sensitivity analysis. Scenario analysis changes several assumptions together."},
+{s:"F2",n:18,c:3,q:"Biases can and should always be eliminated in financial forecasts.",o:TF,a:1,x:"False. Unintended biases should be removed, but deliberate ones (a conservative or worst case) are legitimate if explained."},
+{s:"F2",n:19,c:3,q:"Which of the following is commonly used in preparing pro forma statements?",o:["Historical financial statements","Projected sales","Efficiency ratios","All of the above"],a:3,x:"Pro formas start from past statements, use projected sales, and use ratios (percent of sales, efficiency ratios) to project each account."},
+{s:"F2",n:20,c:3,q:"What are pro forma statements?",o:["Summaries of historical financial statements","Government-mandated analyses of financial statements","Projected statements used in financial planning","Estimated tax liabilities"],a:2,x:"Pro formas are projected financial statements used for planning."},
+{s:"F2",n:21,c:4,q:"Which liabilities form part of a company’s “real” activities?<span class='stmt'>I. Short-term debt<br>II. Accounts payable<br>III. Accrued operating expenses<br>IV. Long-term debt</span>",o:["III only","II and III","I and IV","I only"],a:1,x:"Payables and accrued operating expenses come from running the business: real. Short- and long-term debt are financing: financial."},
+{s:"F2",n:22,c:5,q:"The cost of debt is generally lower than the cost of equity.",o:TF,a:0,x:"True. Debt is a fixed, senior claim, so it is less risky for investors and therefore cheaper."},
+{s:"F2",n:23,c:5,q:"M&amp;M’s Proposition I states that a company’s value is independent of its capital structure.",o:TF,a:0,x:"True, in perfect markets: value depends only on the assets."},
+{s:"F2",n:24,c:5,q:"A higher level of leverage generally reduces managerial discretion.",o:TF,a:0,x:"True. Debt commits future cash to interest and principal and brings covenants, so managers have less free cash to spend as they wish."},
+{s:"F2",n:25,c:5,q:"The Pecking Order Theory of capital structure implies a unique optimum capital structure.",o:TF,a:1,x:"False. It ranks funding sources each time money is needed but gives no single optimal ratio. The static tradeoff model is the one with a unique optimum."},
+{s:"F2",n:26,c:5,q:"As EBIT drops, the ROE of a levered firm drops ____ the ROE of an otherwise identical unlevered firm.",o:["the same as","relatively more than","relatively less than","more or less than (it cannot be determined)"],a:1,x:"Interest is a fixed charge, so a fall in EBIT hits a levered firm's net income harder. Leverage amplifies ROE in both directions."},
+{s:"F2",n:27,c:5,q:"The owner of Grandma’s Applesauce plans to retire after the coming year. She must repay a $50,000 loan plus 8% interest from operating cash flow, which will be $65,000 (70% probability) or $45,000 (30%). Tax rate 0%. What is the owner’s expected cash flow after debt service?",o:["$9,000","$5,000","$11,000","$7,700"],a:1,x:"Debt service = 50,000 × 1.08 = 54,000. Expected cash flow = 0.7 × 65,000 + 0.3 × 45,000 = 59,000. Expected cash after debt service = 59,000 − 54,000 = $5,000.",note:"The $7,700 option assumes she pays nothing in the bad year (0.7 × 11,000). The course key is $5,000: it treats the full repayment as owed."},
+{s:"F2",n:28,c:5,q:"Shareholders prefer high risk projects when facing a high probability of bankruptcy because",o:["high risk projects usually bring high rewards.","shareholders have the residual claim on a company.","creditors have the residual claim on a company, and therefore bear the risk.","there is a good chance the government will rescue them in bankruptcy."],a:1,x:"Shareholders own the residual claim with limited liability. Near bankruptcy they have little to lose, while most of the downside of a risky bet falls on creditors."},
+{s:"F2",n:29,c:5,q:"The ____ states that the value of the firm is determined solely by the value of its assets.",o:["Static Tradeoff Model","M&amp;M proposition I","The Pecking Order Model","Agency Theory"],a:1,x:"M&amp;M Proposition I: value comes from the assets, not from how they are financed."},
+{s:"F2",n:30,c:5,q:"Which expresses the value of a levered firm (VL) in the Static Tradeoff model? (VU = unlevered firm value, CFD = expected costs of financial distress.)",o:["VL = PV(Tax Shield) − PV(CFD)","VL = VU + PV(Tax Shield) / PV(CFD)","VL = VU + PV(Tax Shield) − PV(CFD)","VL = VU + PV(Tax Shield)"],a:2,x:"VL = VU + PV(tax shields) − PV(costs of financial distress). The last option is M&amp;M with taxes only."},
+{s:"F2",n:31,c:5,q:"Which is an example of an indirect cost of bankruptcy?",o:["Court costs","Attorney and advisor fees","Lost sales due to customers and suppliers lost trust","All of the above"],a:2,x:"Indirect costs are lost business: customers, suppliers and employees who walk away. Court costs and fees are direct costs."},
+{s:"F2",n:32,c:5,q:"Which of the following are equivalent under M&amp;M proposition I?",o:["Maximizing firm value and maximizing firm profit","Maximizing firm value and minimizing the cost of capital","Minimizing the cost of capital and minimizing the debt burden","Maximizing profit and minimizing taxes"],a:1,x:"Maximizing firm value and minimizing the cost of capital lead to the same capital structure."},
+{s:"F2",n:33,c:5,q:"Which is NOT an assumption underlying M&amp;M proposition I?",o:["No arbitrage","No taxes","Corporate investments are risk-free","Symmetric information"],a:2,x:"M&amp;M never assumes investments are risk-free. It relies on no taxes, symmetric information and no arbitrage in equilibrium."},
+{s:"F2",n:34,c:5,q:"Which trait is commonly found in debt contracts?",o:["Seniority","Covenants","Callability","All of the above"],a:3,x:"Seniority, covenants and callability are all common debt features, along with security (collateral)."},
+{s:"F2",n:35,c:6,q:"Selecting investment projects according to rules based either on project NPV or IRR results in maximizing firm value.",o:TF,a:1,x:"False. The NPV rule maximizes value, but IRR can mislead: several IRRs when cash flow signs change more than once, the reinvestment assumption, projects of different sizes."},
+{s:"F2",n:36,c:6,q:"A dollar today is worth more than a dollar tomorrow.",o:TF,a:0,x:"True: today's dollar can be invested and earn interest."},
+{s:"F2",n:37,c:6,q:"The NPV rule (invest in projects with NPV &gt; 0) depends on the assumption of value maximization.",o:TF,a:0,x:"True. Investing in every positive-NPV project is what a value maximizer does."},
+{s:"F2",n:38,c:6,q:"You invest $2,000 today for three years at 5% interest paid annually and re-invest all interest. How much interest do you earn in total?",o:["205.00","300.00","315.25","500.00"],a:2,x:"FV = 2,000 × 1.05<sup>3</sup> = 2,315.25, so interest = $315.25. $300 is simple interest."},
+{s:"F2",n:39,c:6,q:"The amount by which a project increases the value of the firm is given by the project’s ____.",o:["accounting rate of return","net present value (NPV)","internal rate of return (IRR)","present value"],a:1,x:"NPV = value created. Present value alone ignores the investment cost."},
+{s:"F2",n:40,c:6,q:"Which items are necessary to calculate the NPV of a project?<span class='stmt'>I. Investment outlays<br>II. Discount rate<br>III. Incremental cash flow<br>IV. Time period for the project</span>",o:["I, II and IV","I, II and III","II, III and IV","All of the above"],a:3,x:"You need all four: what you invest, the rate, the incremental cash flows and when each occurs."},
+{s:"F2",n:41,c:6,q:"Compute the NPV of an investment with 5 years of annual inflows of $100 and two outflows: $100 today and $50 at the beginning of the second year. Discount rate 10%.",o:["$229.08","$287.60","$233.62","$271.53"],a:2,x:"NPV = −100 − 50 ÷ 1.10 + 100 × (1/1.1 + 1/1.1<sup>2</sup> + … + 1/1.1<sup>5</sup>) = −100 − 45.45 + 379.08 = $233.62. The beginning of year 2 is the end of year 1, so the $50 is discounted once."},
+{s:"F2",n:42,c:6,q:"A riskless project requires $10 now and pays $30 once, two years later. The risk-free rate is 5%. Which statement is NOT true?",o:["The net present value of the project is positive.","The IRR is greater than 50 percent.","The accounting rate of return on the project is positive.","The payback period is less than 2 years."],a:3,x:"NPV = 30 ÷ 1.05<sup>2</sup> − 10 = 17.2 &gt; 0. IRR: 10 × (1 + r)<sup>2</sup> = 30, r = 73% &gt; 50%. Accounting return is positive. Nothing comes back before year 2, so payback is exactly 2 years, not less."},
+{s:"F2",n:43,c:6,q:"What is the present value of a perpetuity of $100 given a discount rate of 5%?",o:["$2,000","$3,000","$1,500","$500"],a:0,x:"PV = CF ÷ r = 100 ÷ 0.05 = $2,000."},
+{s:"F2",n:44,c:7,q:"All else equal, when a company’s debt ratio rises, its beta falls.",o:TF,a:1,x:"False. More debt makes equity riskier, so the equity beta rises (β equity = β unlevered ÷ E/V)."},
+{s:"F2",n:45,c:7,q:"If you borrow capital to start a business and the money is provided interest-free, then your cost of capital is zero.",o:TF,a:1,x:"False. The cost of capital is an opportunity cost: what you could earn elsewhere at the same risk."},
+{s:"F2",n:46,c:7,q:"Increasing a company’s leverage has no effect on its cost of equity.",o:TF,a:1,x:"False. More leverage makes equity riskier and raises its cost (Golden State 14.0% vs Smucker 9.7%, same unlevered beta)."},
+{s:"F2",n:47,c:7,q:"Which assumptions about investor behavior are required by the CAPM?<span class='stmt'>I. Investors try to maximize their wealth<br>II. Investors consider only risk when making investments<br>III. Investors are risk averse<br>IV. Investors adopt a long-term perspective</span>",o:["I and III","I, II and III","I and IV","All of the above"],a:0,x:"I and III. Investors consider risk and return (not only risk), and a long-term perspective is not an assumption."},
+{s:"F2",n:48,c:7,q:"For a firm with an optimal capital structure, the WACC is:",o:["higher than the cost of equity","lower than the cost of debt","lower than the cost of unlevered equity","independent of the capital structure"],a:2,x:"With debt, the interest tax shield pulls the WACC below the cost of unlevered equity (Golden State: WACC 8.67% &lt; R assets 8.95%)."},
+{s:"F2",n:49,c:7,q:"Which information is NOT required to calculate the WACC of a company with debt?",o:["Its capital structure ratios","Its cost of debt","Its current ratio","Its tax rate"],a:2,x:"WACC needs D/V, E/V, Kd, Ke and the tax rate. The current ratio plays no part."},
+{s:"F2",n:50,c:7,q:"In the CAPM, what does beta measure?",o:["Non-systematic (diversifiable) risk","Systematic (non-diversifiable) risk","Total risk","Risk-adjusted stock returns"],a:1,x:"Beta measures systematic risk: how much the stock moves with the market."},
+
+/* ===== Pre-test ===== */
+{s:"PT",n:1,c:1,q:"Asset turnover is equal to assets divided by sales.",o:TF,a:1,x:"False. Asset turnover = sales ÷ assets."},
+{s:"PT",n:2,c:1,q:"The equity to asset ratio is equal to [1 – the debt to asset ratio].",o:TF,a:0,x:"True. Assets = liabilities + equity, so equity/assets = 1 − liabilities/assets."},
+{s:"PT",n:3,c:1,miss:true,q:"Firm XYZ has the following sales data. What is the compound average growth rate (CAGR) for the full period?",o:["5.43%","–7.17%","–5.43%","7.17%"],a:1,x:"CAGR = (last ÷ first)<sup>1/n</sup> − 1, with n the number of years between them. A negative result means sales shrank on average."},
+{s:"PT",n:4,c:1,q:"Which of the following common ratios measures efficiency?",o:["Return on assets","Times interest earned","Days in inventory","Contribution margin"],a:2,x:"Days in inventory is an efficiency ratio. ROA is profitability, times interest earned is leverage."},
+{s:"PT",n:5,c:2,q:"All else equal, a firm with higher days in inventory will have a shorter cash cycle.",o:TF,a:1,x:"False. More days in inventory make the cash cycle longer."},
+{s:"PT",n:6,c:1,q:"Firm ABC has assets of $80, sales of $75 and COGS of $40. Current assets of $50 consist of cash, receivables and inventory. Current liabilities are $60. Cash is $20 and receivables $10. In a common size balance sheet, inventory equals:",o:["37.5%","25.0%","40.0%","26.7%"],a:1,x:"Inventory = 50 − 20 − 10 = 20. Common size = 20 ÷ total assets 80 = 25.0%."},
+{s:"PT",n:7,c:1,q:"Firm BCD has an average collection period of 93 days. If accounts receivable are $242, what are its sales (nearest dollar)?",o:["$62","$140","$950","$1433"],a:2,x:"Collection period = receivables ÷ (sales/365), so sales = 242 × 365 ÷ 93 = $950."},
+{s:"PT",n:8,c:1,q:"Holding all else constant, which changes increase the interval measure?<span class='stmt'>I. Cash increases<br>II. Receivables increase<br>III. Operating costs increase</span>",o:["I","I and II","I and III","I, II and III"],a:1,x:"Interval measure = (cash + securities + receivables) ÷ daily operating costs. More cash or receivables raise it; higher operating costs lower it."},
+{s:"PT",n:9,c:1,q:"Which statements about the compound average growth rate are true?<span class='stmt'>I. CAGR is the single constant growth rate that, compounded over a finite number of years, produces the observed end point from the observed starting value.<br>II. CAGR generally measures the arithmetic average of sales growth over a multi-year period.<br>III. Over a multi-year period, CAGR can be positive even if most of the one-year growth rates are negative.</span>",o:["I only","I and II","I and III","I, II, and III"],a:2,x:"I is the definition and III is true because only the endpoints matter. II is false: CAGR is a geometric (compounded) average, not arithmetic."},
+{s:"PT",n:10,c:1,q:"A firm has receivables turnover of 8. Sales are $600. What is the value of average receivables?",o:["$75","$480","$750","$4800"],a:0,x:"Receivables turnover = sales ÷ receivables, so receivables = 600 ÷ 8 = $75."},
+{s:"PT",n:11,c:2,q:"The cash cycle may also be described as:<span class='stmt'>I. The operating cycle<br>II. The net working capital cycle<br>III. A process that is largely unaffected by managerial choices</span>",o:["I only","II only","I and II only","I, II, and III"],a:3,x:"I and II are other names for the cash cycle. The course key also counts III as true.",note:"Careful: the tutorial text says managerial choices (credit terms, inventory policy) do affect the cycle. The official key for this question is still “I, II, and III”."},
+{s:"PT",n:12,c:2,q:"Which of the following is an example of a use of funds?",o:["Increase in inventory","Increase in long-term debt","Reduction in cash","Sale of fixed assets"],a:0,x:"Increasing an asset absorbs cash: use. More debt, less cash and selling fixed assets are sources."},
+{s:"PT",n:13,c:2,q:"A firm has days in inventory of 110 and a receivables collection period of 64 days. Its cash conversion cycle is 27 days. What is its payables period?",o:["19 days","73 days","147 days","201 days"],a:2,x:"CCC = DIO + collection − payables. 27 = 110 + 64 − payables, so payables period = 147 days."},
+{s:"PT",n:14,c:2,fig:"BIS,BBS",q:"Presented below are Billie’s Baubles’ 2019 statements. Assume credit purchases equal COGS. Billie’s Baubles collects its receivables faster than it pays its payables, which worsens its cash conversion cycle.",o:TF,a:1,x:"Collection period = 70 ÷ (400/365) = 64 days. Payables period = 40 ÷ (100/365) = 146 days. It does collect faster than it pays, but that shortens the cycle: it improves it. False."},
+{s:"PT",n:15,c:2,q:"In 2007 Joe’s Shoes had receivables of $40 and payables of $30. In 2008, receivables of $25 and payables of $45. The decrease in receivables is a ____ of cash and the increase in payables is a ____ of cash.",o:["use; use","use; source","source; source","source; use"],a:2,x:"An asset decrease is a source, and a liability increase is a source too."},
+{s:"PT",n:16,c:2,fig:"BIS,BBS",q:"Presented below are Billie’s Baubles’ 2019 statements. For 2020, Billie wants to increase sales growth. Which projected 2020 balance sheet data are most consistent with this goal (all other accounts about the same)?",o:["Inventory: $25; accounts receivable: $75; bank debt: $50","Inventory: $30; accounts receivable: $70; bank debt: $40","Inventory: $35; accounts receivable: $65; bank debt: $35","Inventory: $40; accounts receivable: $75; bank debt: $50"],a:3,x:"Growth needs more inventory and more receivables, financed with more bank debt. Only the last option raises all three (30 → 40, 70 → 75, 40 → 50)."},
+{s:"PT",n:17,c:3,q:"Yannie’s Yoga Clothing has 60 mall stores; its competitor Tina’s Threads has stores in the same malls. If Tina’s closes half its stores, the likely impact on Yannie’s statements (scenario analysis, total market unchanged) is:",o:["Decrease in sales; decrease in cost of goods sold","Increase in sales; increase in cost of goods sold","Increase in sales; no change in cost of goods sold","No change to sales; no change to cost of goods sold"],a:1,x:"Tina's customers come to Yannie: sales rise, and COGS rises with them because COGS varies with sales."},
+{s:"PT",n:18,c:3,q:"Some balance sheet and income statement accounts that vary directly with sales include:<span class='stmt'>I. Cost of goods sold<br>II. Depreciation<br>III. Accounts payable<br>IV. Accounts receivable</span>",o:["I, II, III only","I, II, IV only","I, III, IV only","I, II, III, and IV"],a:2,x:"COGS, payables and receivables move with sales. Depreciation depends on fixed assets."},
+{s:"PT",n:19,c:3,q:"Which statement about a pro forma balance sheet is true?",o:["It does not need to follow the usual accounting rules","It is a projection of a company’s assets, liabilities, and equity","Its main focus is on the method by which a firm might raise additional funding","It is a projection of a company’s revenues, costs, and profit"],a:1,x:"A pro forma balance sheet projects assets, liabilities and equity, following normal accounting rules. Revenues and costs are in the pro forma income statement."},
+{s:"PT",n:20,c:4,q:"Which is a real activity that generates cash by producing goods and services for customers?",o:["Debt issuance","Equity issuance","Research and development expense","Interest expense"],a:2,x:"R&amp;D is part of producing goods and services. Issuing debt or shares and paying interest are financial."},
+{s:"PT",n:21,c:4,fig:"BBS",q:"Presented below is Billie’s Baubles’ 2019 balance sheet. Which should be reclassified as real activities?<span class='stmt'>I. Accounts payable<br>II. Other accrued liabilities<br>III. Revolving bank debt</span>",o:["I only","II only","I and II only","I, II, and III"],a:2,x:"Payables and accrued liabilities come from operations: real. Revolving bank debt is interest-bearing financing: financial."},
+{s:"PT",n:22,c:5,q:"Which statement about common equity is true?",o:["Common equity generally has a lower cost of capital than debt.","Common equity holders vote on day-to-day firm decisions.","Common equity represents a shareholder’s residual claim on the firm’s cash flow.","Common equity holders have priority over preferred equity holders to receive dividends."],a:2,x:"Equity is the residual claim. It costs more than debt, shareholders vote on the board (not daily decisions), and preferred shareholders are paid first."},
+{s:"PT",n:23,c:5,q:"Which is NOT a condition of M&amp;M’s Proposition I?",o:["No costs of financial distress","No taxes","Incomplete markets: investors and companies have different borrowing and lending opportunities","Symmetric information"],a:2,x:"M&amp;M requires complete markets (same borrowing and lending opportunities for all). Incomplete markets is the opposite."},
+{s:"PT",n:24,c:5,q:"The “Conservation of Business Risk” implies that a change in capital structure changes the business risk per dollar of equity, but not the total amount of risk.",o:TF,a:0,x:"True. Debt does not change the risk of the operations; it concentrates it on fewer equity dollars."},
+{s:"PT",n:25,c:5,q:"An investor bought Billie’s Baubles stock last year at $47. Today the price is $53. If Billie’s pays a $2 dividend per share right now, today’s price will be ____, dividend income ____, and unrealized capital gain ____.",o:["$45; $2; $4","$51; $0; $6","$51; $2; $4","$53; $2; $4"],a:2,x:"The price drops by the dividend: 53 − 2 = 51. Dividend income = $2. Unrealized gain = 51 − 47 = $4."},
+{s:"PT",n:26,c:5,q:"In a world with no taxes, shareholders are indifferent between dividend payouts and share repurchases.",o:TF,a:0,x:"True. Without taxes both leave shareholders with the same total wealth."},
+{s:"PT",n:27,c:5,fig:"BIS",q:"Billie’s Baubles had net worth of $150 in 2018. What was its return on beginning equity in 2019?",o:["54.2%","68.7%","98.1%","171.7%"],a:1,x:"ROBE = 2019 net income ÷ 2018 net worth = 103 ÷ 150 = 68.7%."},
+{s:"PT",n:28,c:5,q:"Which is an example of a direct cost of financial distress?",o:["Distracted management","Loss of customers","Loss of employees","Attorney fees"],a:3,x:"Attorney fees are direct. The other three are indirect costs."},
+{s:"PT",n:29,c:5,q:"The static tradeoff model relaxes two conditions of M&amp;M Proposition I:<span class='stmt'>I. Taxes<br>II. Costs of financial distress<br>III. Symmetric information<br>IV. Complete markets</span>",o:["I and III","I and II","II and III","III and IV"],a:1,x:"Taxes and costs of financial distress."},
+{s:"PT",n:30,c:5,fig:"BIS",q:"Billie’s Baubles’ tax rate is 35%. What was the tax shield from interest expense in 2019?",o:["$2.45","$4.55","$7.00","$14.00"],a:0,x:"Interest tax shield = interest × tax rate = 7 × 35% = $2.45."},
+{s:"PT",n:31,c:5,q:"Ideally, managers select a capital structure that ____ the value of the firm and/or ____ the firm’s cost of capital.",o:["maximizes; maximizes","maximizes; minimizes","minimizes; maximizes","minimizes; minimizes"],a:1,x:"Maximize value, minimize the cost of capital: the same goal seen two ways."},
+{s:"PT",n:32,c:5,q:"The ____ relaxes the M&amp;M assumption of symmetric information by assuming insiders know more than outsiders, leading outsiders to charge more for capital.",o:["Agency cost theory","Pecking order hypothesis","Product market model","Static tradeoff model"],a:1,x:"The pecking order hypothesis is built on asymmetric information."},
+{s:"PT",n:33,c:5,q:"Which statements are true?<span class='stmt'>I. It is legally permissible for a firm with cash flow problems to skip a planned interest payment.<br>II. It is legally permissible for a firm with cash flow problems to skip a planned dividend payment.</span>",o:["I only","II only","Both I and II","Neither I nor II"],a:1,x:"Skipping interest is a default. Skipping a dividend is allowed: the board decides dividends."},
+{s:"PT",n:34,c:5,q:"The ____ argues that firm managers have interests that differ from their investors, so they may not work hard enough, pay less attention, or steal from investors.",o:["Agency cost theory","Pecking order hypothesis","Product market model","Static tradeoff model"],a:0,x:"Agency cost theory: agents (managers) do not always act for principals (owners)."},
+{s:"PT",n:35,c:6,q:"Using a discount rate of 8%, Billie estimates a new project’s NPV at –$40. The project’s IRR ____ the discount rate of 8%.",o:["must be lower than","must be higher than","must be equal to","cannot be definitively compared to"],a:0,x:"NPV falls as the rate rises. NPV is already negative at 8%, so the rate that makes it zero is below 8%."},
+{s:"PT",n:36,c:6,q:"All else equal, companies prefer shorter payback periods to longer payback periods.",o:TF,a:0,x:"True: money back sooner is worth more and is less risky."},
+{s:"PT",n:37,c:6,q:"If an investment has a ____ NPV, its IRR is typically ____ the discount rate.",o:["negative; greater than","positive; greater than","positive; less than","positive; equal to"],a:1,x:"Positive NPV usually means IRR above the discount rate."},
+{s:"PT",n:38,c:6,q:"Which investment decision criterion does not require estimating the cost of capital?",o:["Net present value","Payback period","Discounted payback period","Internal rate of return"],a:1,x:"Simple payback adds undiscounted cash flows, so it needs no rate. NPV, discounted payback and IRR (compared with the cost of capital) all need one."},
+{s:"PT",n:39,c:6,q:"A concern with NPV is that under certain circumstances it is possible to have more than one NPV for a single project.",o:TF,a:1,x:"False. The concern of multiple values applies to IRR (when cash flow signs change more than once). NPV has one value for a given rate."},
+{s:"PT",n:40,c:8,fig:"BIS",q:"Billie’s tax rate was 35% in 2019. Capital expenditures were $30 and the change in net working capital was $25. What was Billie’s Free Cash Flow for 2019?",o:["$31.05","$61.95","$87.95","$92.50"],a:3,x:"FCF = EBIT(1 − t) + depreciation − capex − ΔNWC = 150 × 0.65 + 50 − 30 − 25 = 97.5 + 50 − 55 = $92.50."},
+{s:"PT",n:41,c:6,q:"With a 36% tax rate, what is the annual depreciation tax shield of a $100,000 machine depreciated straight-line over 8 years?",o:["$2,880","$3,600","$4,500","$6,400"],a:2,x:"Depreciation = 100,000 ÷ 8 = 12,500 a year. Tax shield = 12,500 × 36% = $4,500."},
+{s:"PT",n:42,c:6,q:"You want $25,000 in 5 years and earn 8% compounded annually. How much must you invest today?",o:["$5,000.00","$17,014.58","$18,375.75","$23,148.15"],a:1,x:"PV = 25,000 ÷ 1.08<sup>5</sup> = 25,000 ÷ 1.4693 = $17,014.58."},
+{s:"PT",n:43,c:6,q:"An investment pays $500 per year forever at a 5% rate. What is its present value?",o:["$100","$2,500","$10,000","$1,000,000"],a:2,x:"Perpetuity PV = CF ÷ r = 500 ÷ 0.05 = $10,000."},
+{s:"PT",n:44,c:7,miss:true,q:"Billie’s manager has estimated possible cash flows and their probabilities for a new project. What is the expected (probability-weighted) cash flow?",o:["$32.50","$35.00","$38.00","$40.00"],a:2,x:"Expected cash flow = Σ (probability × cash flow): multiply each outcome by its probability and add them up. Result: $38."},
+{s:"PT",n:45,c:7,q:"In the capital allocation decision, what is the definition of the cost of capital?",o:["0%","the return you can receive on an investment with similar risk","the current risk-free rate","the return on a risky bond"],a:1,x:"Cost of capital = opportunity cost: the return available elsewhere at similar risk."},
+{s:"PT",n:46,c:7,q:"The standard deviation of a portfolio of two risky assets is the weighted average of each asset’s standard deviation.",o:TF,a:1,x:"False. The expected return is a weighted average, but the standard deviation is lower whenever correlation is below 1. That is diversification."},
+{s:"PT",n:47,c:7,q:"The portfolio that offers the highest level of return for a given level of risk is called the ____.",o:["Efficient frontier","Minimum variance portfolio","Optimal portfolio","Maximum variance portfolio"],a:2,x:"The course's answer is the optimal portfolio. The efficient frontier is the whole curve of such portfolios, not one portfolio."},
+{s:"PT",n:48,c:7,fig:"CML",q:"On the tangent line in the plot, investors in portfolios to the left of the market portfolio are ____ of riskless Treasury securities, while investors to the right are ____.",o:["borrowers; borrowers","borrowers; lenders","lenders; borrowers","lenders; lenders"],a:2,x:"Left of the market portfolio, investors hold some Treasuries: they lend. Right of it, they borrow at the risk-free rate to invest more than 100% in the market."},
+{s:"PT",n:49,c:7,q:"The risk-free rate is 5%, stock A has a beta of 1.2, and the expected return on the market is 12%. What is the expected return of stock A?",o:["8.4%","13.4%","17.0%","19.4%"],a:1,x:"E(r) = 5% + 1.2 × (12% − 5%) = 5% + 8.4% = 13.4%. The market premium is 7%, not 12%."},
+{s:"PT",n:50,c:7,q:"Using a short-term Treasury bill’s yield as the risk-free rate, what is the beta of the risk-free asset?",o:["0","0.25","0.50","1.00"],a:0,x:"A T-bill does not move with the market: β = 0."}
+];
+
+/* ---------- state ---------- */
+var KEY="cf-midterm-answers-v1";
+var ans={};
+try{ ans=JSON.parse(localStorage.getItem(KEY)||"{}")||{}; }catch(e){ ans={}; }
+function save(){ try{ localStorage.setItem(KEY,JSON.stringify(ans)); }catch(e){} }
+var st={src:"all",ch:"all",view:"all"};
+function id(q){ return q.s+"-"+q.n; }
+var FIG={BIS:BIS,BBS:BBS,XYZ:XYZ,CML:CML};
+var ORDER={PT:0,F1:1,F2:2};
+Q.sort(function(a,b){ return a.c-b.c || ORDER[a.s]-ORDER[b.s] || a.n-b.n; });
+
+/* chapter counts in Learn */
+var counts={}; Q.forEach(function(q){ counts[q.c]=(counts[q.c]||0)+1; });
+document.querySelectorAll("[data-count]").forEach(function(el){ var c=el.getAttribute("data-count"); el.textContent=(counts[c]||0)+" exam questions on this chapter"; });
+
+/* ---------- filters ---------- */
+function chip(group,val,label){
+  var b=document.createElement("button"); b.type="button"; b.className="chip"; b.textContent=label;
+  b.setAttribute("data-g",group); b.setAttribute("data-v",val);
+  b.addEventListener("click",function(){ st[group]=val; render(); });
+  return b;
+}
+var fsrc=document.getElementById("fsrc"), fch=document.getElementById("fch"), fview=document.getElementById("fview");
+[["all","All 150"],["PT","Pre-test"],["F1","Final Exam 1"],["F2","Final Exam 2"]].forEach(function(x){ fsrc.appendChild(chip("src",x[0],x[1])); });
+fch.appendChild(chip("ch","all","All"));
+for(var c=1;c<=8;c++){ fch.appendChild(chip("ch",String(c),c+" · "+CH[c])); }
+[["all","Everything"],["todo","Not answered yet"],["missed","My mistakes"]].forEach(function(x){ fview.appendChild(chip("view",x[0],x[1])); });
+
+function letter(i){ return "ABCD".charAt(i); }
+
+function cardHTML(q){
+  var k=id(q), my=ans[k], done=(my!==undefined);
+  var h='<div class="meta"><span class="src">'+SRC[q.s]+' · Q'+q.n+'</span><span>Ch. '+q.c+' · '+CH[q.c]+'</span></div>';
+  h+='<div class="q">'+q.q+'</div>';
+  if(q.fig){ q.fig.split(",").forEach(function(f){ h+=FIG[f]; }); }
+  if(q.miss){ h+='<p class="note">'+MISSING+'</p>'; }
+  h+='<div class="opts">';
+  q.o.forEach(function(t,i){
+    var cls="opt";
+    if(done){ if(i===q.a) cls+=" right"; else if(i===my) cls+=" wrong"; }
+    h+='<button type="button" class="'+cls+'" data-q="'+k+'" data-i="'+i+'"'+(done?' disabled':'')+'><span class="k">'+letter(i)+'</span><span>'+t+'</span></button>';
+  });
+  h+='</div>';
+  if(done){
+    if(my===-1){ h+='<div class="verdict">Answer: '+letter(q.a)+'</div>'; }
+    else if(my===q.a){ h+='<div class="verdict ok">Correct</div>'; }
+    else { h+='<div class="verdict ko">Not quite. The answer is '+letter(q.a)+'.</div>'; }
+    h+='<div class="why">'+q.x+'</div>';
+    if(q.note){ h+='<p class="note">'+q.note+'</p>'; }
+    h+='<div class="cardfoot"><button type="button" class="linkbtn" data-retry="'+k+'">Try again</button></div>';
+  } else {
+    h+='<div class="cardfoot"><button type="button" class="linkbtn" data-reveal="'+k+'">Show the answer</button></div>';
+  }
+  return h;
+}
+
+function filtered(){
+  return Q.filter(function(q){
+    if(st.src!=="all" && q.s!==st.src) return false;
+    if(st.ch!=="all" && String(q.c)!==st.ch) return false;
+    var my=ans[id(q)];
+    if(st.view==="todo" && my!==undefined) return false;
+    if(st.view==="missed" && !(my!==undefined && my!==q.a)) return false;
+    return true;
+  });
+}
+
+function render(){
+  document.querySelectorAll(".chip").forEach(function(b){ b.setAttribute("aria-pressed", String(st[b.getAttribute("data-g")]===b.getAttribute("data-v"))); });
+  var list=filtered(), box=document.getElementById("cards");
+  box.innerHTML="";
+  if(!list.length){ box.innerHTML='<div class="empty">'+(st.view==="missed"?"No mistakes in this selection.":st.view==="todo"?"You have answered every question in this selection.":"No questions here.")+'</div>'; }
+  list.forEach(function(q){ var d=document.createElement("article"); d.className="card"; d.id="q-"+id(q); d.innerHTML=cardHTML(q); box.appendChild(d); });
+  score();
+}
+
+function score(){
+  var scope=Q.filter(function(q){ return (st.src==="all"||q.s===st.src)&&(st.ch==="all"||String(q.c)===st.ch); });
+  var answered=0, right=0;
+  scope.forEach(function(q){ var m=ans[id(q)]; if(m!==undefined && m!==-1){ answered++; if(m===q.a) right++; } });
+  var pct=answered?Math.round(100*right/answered):0;
+  document.getElementById("score").innerHTML='<span><b>'+answered+'</b> / '+scope.length+' answered</span><span><b>'+right+'</b> correct</span><span><b>'+pct+'%</b> score</span>';
+  document.getElementById("bar").style.width=(scope.length?Math.round(100*answered/scope.length):0)+"%";
+}
+
+function redrawCard(k){
+  var q=Q.filter(function(x){ return id(x)===k; })[0], el=document.getElementById("q-"+k);
+  if(q && el){ el.innerHTML=cardHTML(q); }
+  score();
+}
+
+document.getElementById("cards").addEventListener("click",function(e){
+  var o=e.target.closest(".opt");
+  if(o && !o.disabled){ var k=o.getAttribute("data-q"); ans[k]=Number(o.getAttribute("data-i")); save(); redrawCard(k); return; }
+  var r=e.target.closest("[data-reveal]");
+  if(r){ var k2=r.getAttribute("data-reveal"); ans[k2]=-1; save(); redrawCard(k2); return; }
+  var t=e.target.closest("[data-retry]");
+  if(t){ var k3=t.getAttribute("data-retry"); delete ans[k3]; save(); redrawCard(k3); }
+});
+
+var resetBtn=document.getElementById("reset"), armed=false, timer=null;
+resetBtn.addEventListener("click",function(){
+  if(!armed){ armed=true; resetBtn.textContent="Click again to erase all answers"; timer=setTimeout(function(){ armed=false; resetBtn.textContent="Reset my answers"; },4000); return; }
+  clearTimeout(timer); armed=false; ans={}; save(); resetBtn.textContent="Answers erased"; setTimeout(function(){ resetBtn.textContent="Reset my answers"; },1800); render();
+});
+
+/* ---------- modes ---------- */
+var MODES=["learn","practice","formulas"];
+function setMode(m){
+  MODES.forEach(function(x){ document.getElementById(x).hidden=(x!==m); });
+  document.querySelectorAll(".modes a").forEach(function(a){ if(a.getAttribute("data-mode")===m) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current"); });
+  document.getElementById("index").hidden=(m!=="learn");
+  document.getElementById("wrap").classList.toggle("solo", m!=="learn");
+  if(m==="practice") render();
+}
+function route(){
+  var h=(location.hash||"").replace("#","");
+  if(MODES.indexOf(h)>=0){ setMode(h); window.scrollTo(0,0); return; }
+  if(/^ch[1-8]$/.test(h) || h==="start"){ setMode("learn"); var el=document.getElementById(h); if(el) el.scrollIntoView(); return; }
+  setMode("learn");
+}
+window.addEventListener("hashchange",route);
+document.querySelectorAll("[data-goch]").forEach(function(b){
+  b.addEventListener("click",function(){ st.ch=b.getAttribute("data-goch"); st.src="all"; st.view="all"; if(location.hash==="#practice"){ setMode("practice"); window.scrollTo(0,0); } else { location.hash="practice"; } });
+});
+route();
+})();
+</script>
+
+</body></html>
